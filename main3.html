@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Greatday | Dashboard</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="bower_components/morris.js/morris.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.common-bootstrap.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.bootstrap.min.css" />
+<!--
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.dataviz.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.dataviz.bootstrap.min.css" />
+-->
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+
+<script src="./myJs/myCookies.js"></script>
+<script src="./myJs/myUtil1.js"></script>
+<script src="./myJs/mySetVals.js"></script>
+
+<script>
+
+var cJobNo;
+var cJobStatus;
+var cJobType;
+
+var jobLocData = [];
+var cJobLocID;
+var cJobLocID_hover;
+
+var cClientID;
+var cClientName;
+var cClientAddr;
+var cClientGPS = [];
+var cClientEmail;
+var cClientPhone
+
+var cMessageID;
+var cDate;
+var cTime;
+
+var crewData = [];
+var cCrewID;
+var cCrewMemberID;
+var cCrewPhone;
+var cCrewDriveName;
+var cCrewDriverID;
+//Vehicles
+var cTruckID;
+var cTab;
+
+var cUserID;
+var cUserType;
+var cUserName;
+var franID = 'GD00KS' ;
+var cid = '0532';
+
+//var capPath = configData[0].cappath; //"http://localhost/GD/winCode/cap/"; //EDS Config
+var winCodePath;
+var cMessageLog = [];
+var cWinId = [];
+
+var currentUserData = [];
+var mainGridData = [] ;
+var JCom_History = [];
+
+var calCurrentData = [];
+var scheduler;
+
+var currentVehicleData = [];
+var vehicleData = [];
+var testTblData = [];
+
+var currentEmployeeData = [];
+
+var stateData = [];
+var stateOptions;
+//var stateDataObj = { 'idx':0 };
+//getStates();
+
+
+var selectedGPS;
+var capPath ;
+var parmArray = [];	
+
+var activeForm1 = null;
+var activeFormRecId = null;
+
+	var cookieData = [];
+	//EDS test createCookie('gdiwd3', "", -1);// delete cookie
+	//status,userID,franID,name,accessLevel,email,phone1,uid
+	var str = readCookie('gdiwd3');
+	if ( str != null ) { //&& getUrlParameter("uid") == "Qwa22" ) {
+		cookieData = str.split(',');
+		franID = cookieData[2];	
+		cUserName = cookieData[3];
+		cUserID = cookieData[1]; 
+		//alert(cookieData[4]+' 0 ' +cookieData[0]+" :"+str);
+		if ( cookieData[0] != 'Active' && cookieData[4] > 7) {
+			cUserName = cookieData[3];
+			//window.location.replace('http://localhost/GD/x.html');
+			eraseCookie('gdiwd3');
+			window.location.replace('./index2.html');
+		};
+		
+	} else {
+		eraseCookie('gdiwd3');// delete cookie
+		window.location.replace('./index2.html');
+	};
+	
+	function siteConfig() {
+		//alert("siteConfig.................");
+		var configData = [];
+		$.ajax({
+			url: './config/appConfig.txt',
+			type: 'POST',
+			//data: {'franID':a, 'cid':b },
+			dataType: 'json',
+			cache: false,
+			success: goGetConfigData,
+			async:true,
+			error: goGetConfigError
+		});
+		function goGetConfigData(data) {
+			var myArray = data;
+			//alert(myArray[0].cappath+" Hello "+data[0].codepath); //myArray);
+			capPath 		= data[0].cappath;
+			winCodePath 	= data[0].codepath;
+		   //document.getElementById("myNewsAndInfo_footer").innerHTML = "<p>"+dateTime1("s")+"</p>";
+		}
+		function goGetConfigError(xhr, textStatus, error) {
+			alert("Error:1 "+textStatus+" "+error);
+		}
+	}
+	
+	siteConfig();
+	getUrlParameter2('uid');
+</script>
+
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="index.html" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>A</b>LT</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>GREATDAY MOVING</b></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          
+		  <!-- Messages: style can be found in dropdown.less-->
+          <li class="dropdown messages-menu">
+		<!-- mail icon header -->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-success"><div id="message_menu_cnt2">0</div></span>
+            </a>			
+            <ul class="dropdown-menu">
+              <li class="header"><div id="message_menu_cnt">You have messages</div></li>
+              <li>
+                <!-- EDS inner menu: contains the actual data -->
+                <ul class="menu"><div id="message_menu"></div>
+					
+                </ul>
+              </li>
+              <li class="footer"><a href="#">See All Messages</a></li>
+            </ul>
+          </li>
+		<!-- End of messages email icon -->
+		  
+        <!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning"><div id="appAlert_cnt2"></div></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header"><div id="appAlert_cnt"></div></li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+					<div id="appAlert_txt"></div>					
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
+		<!-- end of notifications -->
+		  
+        <!-- Tasks: style can be found in dropdown.less -->
+          <li class="dropdown tasks-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-flag-o"></i>
+              <span class="label label-danger"><div id="appTasks_cnt2"></div></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header"><div id="appTasks_cnt"></div></li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <div id="appTasks_txt"></div>
+                  <!-- end task item -->
+				  <!-- 
+                  <li>
+                    <a href="#">
+                      <h3>
+                        Create a nice theme
+                        <small class="pull-right">40%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">40% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="#">
+                      <h3>
+                        Some task I need to do
+                        <small class="pull-right">60%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">60% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="#">
+                      <h3>
+                        Make beautiful transitions
+                        <small class="pull-right">80%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
+                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">80% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+            -->    
+                </ul>
+              </li>
+			  
+              <li class="footer">
+                <a href="#">View all tasks</a>
+              </li>
+            </ul>
+          </li>
+		  <!-- end of tasks -->
+		  
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+		<!--
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="./dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs"><div id="usrName"></div></span>
+            </a>
+		-->
+		<!--
+            <ul class="dropdown-menu">             
+			  
+              <li class="user-header">
+                <img src="./dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  xxxx - title
+                  <small>Active since Nov. 2012</small>
+                </p>
+              </li>
+			  
+			  
+              
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </div>
+                
+              </li>
+              
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
+			-->
+          </li>
+		  <!-- end of user -->
+		  
+          <!-- Control Sidebar Toggle Button -->
+		  <!-- EDS XXXXX -->
+		  <li>
+			<p>&nbsp;&nbsp;&nbsp;</p>
+			
+		  </li>
+	
+		  <!--
+          <li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+          </li>
+		  -->
+		  <!-- end side bar -->
+		  
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- end header -->
+  
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      
+	  <!-- Sidebar user panel LEFT -->
+      <div class="user-panel">
+        <div class="pull-left image">
+			<!-- EDS FIX image -->
+          <img src="./dist/img/boxed-bg.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p><div id="usrName2"></div></p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- search form -->
+	  <!--
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+	  -->
+      <!-- /.search form -->
+	  
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li style="color:white;">&nbsp;&nbsp;MAIN NAVIGATION</li>
+        		
+        <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+        <!-- <li class="header">LABELS</li> -->
+        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>News and Info History</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>User Management</span></a></li>
+        <li><a href="javascript:OnLineHelp();"><i class="fa fa-circle-o text-aqua"></i> <span>On-Line Training</span></a></li>
+		
+		<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Customer List</span></a></li>
+		<li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Reports</span></a></li>
+		<li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Todays Jobs Route Sheets</span></a></li>
+		<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Jobs Status Request</span></a></li>
+		
+		<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Technical Support</span></a></li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+	<!-- end side bar -->
+	
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Great Day Dashboard
+        <small>Control panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->	
+    <section class="content">
+	<!-- dialogs -->
+		<div id="winDialog1"></div><div id="winDialog2"></div><div id="WinDialog4"></div><div id="jComWinDialog"></div><div id="capWinDialog"></div>
+		<div id="win1"></div><div id="win2"></div><div id="win3"></div><div id="win4"></div>
+		<div id="vehicleDialog"></div><div id="employeeDialog"></div>
+		<div id="univDialog_1"></div><div id="dialogX"></div><div id="crewDialog" ><div id="crewDialogForm"></div></div>
+		<div id="dialog"></div>
+		<div id="dialogSmall"><div id="dialogSmall_content"></div></div>
+		<div id="dialogMed"><div id="dialogMed_content"></div></div>
+		<div id="dialogLarge"><div id="dialogLarge_content"></div></div>
+		<div id="helpDialog"><div id="helpDialog_content"></div></div>
+		<div id="sound"></div>
+		<div id="windowLarge"></div>
+		<span id="popupNotification"></span>
+		<span id="staticNotification"></span>
+	
+      
+	  
+      <!-- /.row -->
+	  
+<!-- Main row -->
+<!-- row 1 -->
+<div class="row">
+	<div class="col-md-12">
+		<!-- JOB BOARD TAB -->
+		<div id="mainTab" class="nav-tabs-custom " style="height:790px;">
+			<ul class="nav nav-tabs pull-right">
+				<li><a href="#tab_1-4A" data-toggle="tab">Forms</a></li>
+				<li><a href="#tab_1-3A" data-toggle="tab">Job Calendar</a></li>
+
+				<li class="active"><a href="#tab_1-1A" data-toggle="tab">Job Main View</a></li>
+				<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Actions<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="#tab_1-4A" data-toggle="tab">SP Items</a></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="menu3()">Another action</a></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+				  <li role="presentation" class="divider"></li>
+				  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+				</ul>
+				</li>
+			  <li class="pull-left header"><i class="fa fa-th"></i> Job Board </li>
+			</ul>
+			
+			<div class="tab-content">
+			<!-- TAB -->
+			<div class="tab-pane" id="tab_1-4A">
+				<div class="box box-solid">
+				<table>
+				  <tr>
+					<th>
+						<div class="dropdown">
+						  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Entry Form
+						  <span class="caret"></span></button>
+							  <ul class="dropdown-menu">
+								<li><a href="javascript:subForm(0);">Job Routes</a></li>
+								<li><a href="javascript:subForm(1);">Vehicles</a></li>
+								<li><a href="javascript:subForm(2);">Customer List</a></li>
+								<li><a href="#">CSS</a></li>
+								<li><a href="#">JavaScript</a></li>
+							  </ul>
+						</div>
+					</th>
+					<th width="20"></th>
+					<th><div id="formName"><p>...</p></div></th>
+				  </tr>
+				</table>
+				</div>
+				<div id="Edit0" style="width:100%;height:100%; "></div>
+
+			</div>
+		  
+			<div class="tab-pane" id="tab_1-3A">
+				<div class="box box-solid">
+					<div id="scheduler" ></div>
+				</div>
+			</div>
+		  
+			
+		  <!-- END TAB -->
+		  
+		<!-- Job Main View -->
+		<div class="tab-pane active" id="tab_1-1A">
+			<div class="box-header" >
+				<!-- <h3 class="box-title">job Listings</h3> -->
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Job Listings Filters
+					<span class="caret"> </span></button>
+					<ul class="dropdown-menu">
+					  <li class="dropdown-header">Todays Jobs</li>
+					  <li><a href="#">Active</a></li>
+					  <li><a href="#">Pending</a></li>
+					  <li><a href="#">Completed</a></li>
+					  <li class="divider"></li>
+					  <li class="dropdown-header">Jobs For the Month</li>
+					  <li><a href="#">Pending</a></li>
+					</ul>
+				</div>			  
+				
+				<div class="box-tools">
+					<div class="input-group input-group-sm" style="width: 150px;">
+						<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+						<div class="input-group-btn">
+							<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+						
+			<div class="k-widget k-grid" id="mainGridDiv" style="width:100%;overflow-x:scroll;"></div>
+				
+			<button type="button" onclick="javascript:void(0);" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-edit"></span> Edit
+			</button>
+							
+			<button type="button" onclick="javascript::void(0);" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-trash"></span> Delete
+			</button>
+							
+			<button type="button" onclick="javascript::void(0);" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-plus-sign"></span> New
+			</button>
+							
+			<button type="button" onclick="javascript::void(0);" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-question-sign"></span> Help 
+			</button>
+		<!-- END Job Main View -->		
+		  
+			<!-- <p>..ADD TABS HERE..</p> -->
+				<div id="subTab1" class="nav-tabs-custom " style="height:400px;">
+					<ul class="nav nav-tabs pull-right">
+						<li><a href="#tab_9-F" data-toggle="tab">Chat/Cust Hist</a></li>
+						<li><a href="#tab_9-E" data-toggle="tab">XXXX</a></li>
+						<li><a href="#tab_9-D" data-toggle="tab">Special Items</a></li>
+						<li class="active"><a href="#tab_9-B" data-toggle="tab">BBB</a></li>
+						<li><a href="#tab_9-A" data-toggle="tab">Job Routes</a></li>
+						<li><a href="#tab_9-C" data-toggle="tab">Crews/Vehicles</a></li>
+						
+						<li class="pull-left header"><i class="fa fa-th"></i> Job Details</li>
+					</ul>
+				
+					<div class="tab-content">
+						
+						<div class="tab-pane" id="tab_9-B">
+							<p>tab_9-B</p>
+							<div id="xcx"></div>
+						</div>
+						
+						<div class="tab-pane" id="tab_9-A">
+							<div class="col-md-6">
+								<div class="box box-solid">
+									<div class="box-header" >
+									  <h3 class="box-title">Job Routes</h3>
+
+									  <div class="box-tools">
+										<div class="input-group input-group-sm" style="width: 150px;">
+										  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+										  <div class="input-group-btn">
+											<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+										  </div>
+										</div>
+									  </div>
+									</div>
+									<!-- /.box-header -->
+									<div class="box-body table-responsive no-padding" style="height:280px;">
+										<div id="jobPart1" style="width:100%;overflow-x:scroll;"></div>						  
+									</div>
+									<!-- /.box-body -->
+								</div>
+							</div>
+
+							<div class="col-md-6">								
+								<!-- map -->
+								<h4 class="box-title">Route Map</h4>
+								<div id="map" style="height:280px;" >map</div>								
+							</div>
+				
+						</div>
+						
+						<div class="tab-pane" id="tab_9-C">
+							<div class="col-md-6">							
+								<div class="box-header" >
+								  <h3 class="box-title">Crew Members</h3>
+
+								  <div class="box-tools">
+									<div class="input-group input-group-sm" style="width: 150px;">
+									  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+									  <div class="input-group-btn">
+										<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+									  </div>
+									</div>
+								  </div>
+								</div>
+								
+								<!-- /.box-header -->
+								<div class="box-body table-responsive no-padding" style="height:280px;">
+									<div id="theCrew" ></div>					  
+								</div>							
+							</div>
+							
+							<div class="col-md-6">							
+								<div class="box-header" >
+									  <h3 class="box-title">Vehicles</h3>
+
+									  <div class="box-tools">
+										<div class="input-group input-group-sm" style="width: 150px;">
+										  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+										  <div class="input-group-btn">
+											<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+										  </div>
+										</div>
+									  </div>
+								</div>
+								
+								<div id="theVehicle" class="box-body table-responsive no-padding" style="height:280px;">
+														  
+								</div>							
+							</div>
+							
+						</div><!-- end tab_9-C -->
+						
+						<div class="tab-pane" id="tab_9-D">
+							<div class="col-md-6">
+							
+								<div class="box-header" >
+								  <h3 class="box-title">SP Items</h3>
+
+								  <div class="box-tools">
+									<div class="input-group input-group-sm" style="width: 150px;">
+									  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+									  <div class="input-group-btn">
+										<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+									  </div>
+									</div>
+								  </div>
+								  
+								</div>				
+								<!-- /.box-body -->
+								<div class="box-body table-responsive no-padding" style="height:245px;">
+									<div>....................</div>					  
+								</div>
+							
+							</div>
+							
+							<div class="col-md-6">
+							
+							</div>
+							
+						</div>
+						
+						<div class="tab-pane" id="tab_9-E">
+							<div class="col-md-3">
+								<p>Billing Info</p>
+							</div>
+							<div class="col-md-3">
+								<p>EEEEE</p>
+							</div>
+							
+							<div class="col-md-3">
+								<p>Damages</p>
+							</div>
+							<div class="col-md-3">
+								<p>Notes</p>
+							</div>
+						</div>
+						
+						<div class="tab-pane" id="tab_9-F">
+							<div class="col-md-6">						
+										  
+								<!-- DIRECT CHAT  -->
+								<p>Internal Text Chat</p>
+								<div class="box box-success direct-chat direct-chat-success">
+
+									<!-- /.box-header -->
+									<div class="box-body"  >					
+										<!-- Conversations are loaded here -->
+										<div class="direct-chat-messages" style="height:175px;">
+											<div class="direct-chat-msg">
+												<div id="xx" class="direct-chat-info clearfix"></div>								
+												<div id="yy"></div>
+											</div>																	
+										</div>
+									</div>					
+									<!-- /.box-body -->
+									<div class="box-footer">
+									  <!-- <form action="#" method="post"> -->
+										<form class="form-horizontal">
+											<div class="input-group">
+												<span class="input-group-select">
+													<label class="control-label col-sm-2" for="sendTo">To:</label>
+													<div class="col-sm-8">
+														<select id="sendTo" class="form-control" >														
+															<!--
+															<option>All</option>
+															<option>option 2</option>
+															<option>option 3</option>
+															<option>option 4</option>
+															<option>option 5</option>
+															-->
+														</select>
+													</div>
+												</span>
+											</div>
+											<div class="input-group">
+											  <input id="ChatTxt" type="text" name="message" placeholder="Type Message ..." class="form-control">
+												  <span class="input-group-btn">
+													<button type="button" class="btn btn-success btn-flat" onClick="javascript:sendChat();">Send</button>
+												  </span>
+											</div>
+										</form>
+									</div><!-- /.box-footer-->
+								</div> <!-- end of chat -->
+								
+							</div>
+							<div class="col-md-6">
+								<!-- Cust History -->
+								<!-- Custom Tabs (Pulled to the right) -->
+								<!-- row 1 right tab -->
+								<div class="nav-tabs-custom" style="height:350px;">
+									<ul class="nav nav-tabs pull-right">
+									  <li><a href="#tab_2-1R" data-toggle="tab">Notes</a></li>
+									  <li><a href="#tab_2-2R" data-toggle="tab">History</a></li>
+									  <li class="active"><a href="#tab_2-3R" data-toggle="tab">Details</a></li>
+									  
+									  <!-- future
+									  <li class="dropdown">
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+										  Options<span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+										  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+										  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+										  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+										  <li role="presentation" class="divider"></li>
+										  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+										</ul>
+									  </li>
+									  -->
+									  
+									  <li class="pull-left header"><i class="fa fa-th"></i> Customer Information</li>
+									</ul>
+									<div class="tab-content">
+										<!-- TAB 1 tab_2-3R Customer details -->
+										<div class="tab-pane active" id="tab_2-3R">
+											<div class="box box-solid">
+												<b>Details:</b>
+												
+												<p>CONTENT.</p>
+												<!-- /.box-body -->
+											</div>
+										</div>
+										<!-- /.tab-pane -->
+									  
+										<!-- TAB 2 -->
+										<div class="tab-pane" id="tab_2-2R">
+											<div class="box box-solid">
+												<b>History:</b>
+												
+												<p>CONTENT.</p>
+											<!-- /.box-body -->
+											</div>		  
+										</div>
+										
+									  <!-- /.tab-pane -->
+									  <div class="tab-pane" id="tab_2-1R">
+											<div class="box box-solid">
+												<b>Notes:</b>
+												Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+												Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+												when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+												It has survived not only five centuries, but also the leap into electronic typesetting,
+												remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+												sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+												like Aldus PageMaker including versions of Lorem Ipsum.
+												<!-- /.box-body -->
+											</div>
+									  </div><!-- /.tab-pane -->
+									</div>
+									<!-- /.tab-content -->
+								</div>
+
+							</div>			
+						</div>						
+					</div>
+				</div>
+		</div>
+	  <!-- nav-tabs-custom -->
+	</div>			
+</div> <!-- end row 1 main -->
+<br/><br/><br/>
+		
+	  <!-- TABS -->
+	  <div class="row">
+        <div class="col-md-6">		  
+		</div> 
+        <div class="col-md-6">          
+        </div>
+      </div>
+	  
+	  <!-- eds -->
+	  <div class="row">
+        <div class="col-md-12">
+          <!-- Custom Tabs (Pulled to the right) -->
+		  <!-- row 2 left -->
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs pull-right">
+				<li class="active"><a href="#tab_C-1" data-toggle="tab">Activity</a></li>
+				<li><a href="#tab_C-2" data-toggle="tab">Calls</a></li>
+				<li><a href="#tab_C-3" data-toggle="tab">Jobs</a></li>
+				<li><a href="#tab_C-4" data-toggle="tab">???</a></li>
+				<li><a href="#tab_C-5" data-toggle="tab">???</a></li>
+				<li><a href="#tab_C-6" data-toggle="tab">Weather and Traffic</a></li>
+				
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					  Modules <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">A </a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">B</a></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">C</a></li>
+					  <li role="presentation" class="divider"></li>
+					  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">D</a></li>
+					</ul>
+				</li>
+			  
+            <li class="pull-left header"><i class="fa fa-th"></i> Reporting</li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_C-1" style="height:250px;">
+                <b>Call Center:</b>
+				<div id="piechart"></div>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_C-2" style="height:250px;">
+                <div id="columnchart_values" style="width: 470px; height: 250px;"></div>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_C-3" style="height:250px;">
+                 <div id="columnchart3_values" style="width: 470px; height:250px;"></div>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_C-4" style="height:250px;">
+                <b>How to use:</b>
+                <p>Exactly like the original bootstrap tabs except you should use
+                  the custom wrapper <code>.nav-tabs-custom</code> to achieve this style.</p>
+                A wonderful serenity has taken possession of my entire soul,
+                like these sweet mornings of spring which I enjoy with my whole heart.
+                I am alone, and feel the charm of existence in this spot,
+                which was created for the bliss of souls like mine. I am so happy,
+                my dear friend, so absorbed in the exquisite sense of mere tranquil existence,
+                that I neglect my talents. I should be incapable of drawing a single stroke
+                at the present moment; and yet I feel that I never was a greater artist than now.
+              </div>
+			  <!-- /.tab-pane -->
+			  <div class="tab-pane" id="tab_C-5" style="height:250px;">
+                <b>How to use:</b>
+                <p>Exactly like the original bootstrap tabs except you should use
+                  the custom wrapper <code>.nav-tabs-custom</code> to achieve this style.</p>
+                A wonderful serenity has taken possession of my entire soul,
+                like these sweet mornings of spring which I enjoy with my whole heart.
+                I am alone, and feel the charm of existence in this spot,
+                which was created for the bliss of souls like mine. I am so happy,
+                my dear friend, so absorbed in the exquisite sense of mere tranquil existence,
+                that I neglect my talents. I should be incapable of drawing a single stroke
+                at the present moment; and yet I feel that I never was a greater artist than now.
+              </div>
+			  <!-- /.tab-pane -->
+			  <div class="tab-pane" id="tab_C-6" style="height:250px;">
+                <div id="weather" ></div>
+              </div>
+          </div>
+		  
+          <!-- nav-tabs-custom -->
+		  <!-- end row 3 bottom tab -->
+        </div>
+        <!-- /.col -->
+
+        
+        <!-- /.col -->
+      </div>	  
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 4.0.0
+    </div>
+    <strong>Copyright &copy; 2017 <a href="http://greatedaymoving.com">GD</a>.</strong> All rights
+    reserved.
+  </footer>
+
+  <!-- Control Sidebar  -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">Recent Activity</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                <p>Will be 23 on April 24th</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-user bg-yellow"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                <p>New phone +1(800)555-1234</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                <p>nora@example.com</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+              <div class="menu-info">
+                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                <p>Execution time 5 seconds</p>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+        <h3 class="control-sidebar-heading">Tasks Progress</h3>
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Custom Template Design
+                <span class="label label-danger pull-right">70%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Update Resume
+                <span class="label label-success pull-right">95%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Laravel Integration
+                <span class="label label-warning pull-right">50%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <h4 class="control-sidebar-subheading">
+                Back End Framework
+                <span class="label label-primary pull-right">68%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <!-- /.control-sidebar-menu -->
+
+      </div>
+      <!-- /.tab-pane -->
+      <!-- Stats tab content -->
+      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+      <!-- /.tab-pane -->
+      <!-- Settings tab content -->
+      <div class="tab-pane" id="control-sidebar-settings-tab">
+        <form method="post">
+          <h3 class="control-sidebar-heading">General Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Report panel usage
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Some information about this general settings option
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Allow mail redirect
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Other sets of options are available
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Expose author name in posts
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+
+            <p>
+              Allow the user to show his name in blog posts
+            </p>
+          </div>
+          <!-- /.form-group -->
+
+          <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Show me as online
+              <input type="checkbox" class="pull-right" checked>
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Turn off notifications
+              <input type="checkbox" class="pull-right">
+            </label>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+            <label class="control-sidebar-subheading">
+              Delete chat history
+              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+            </label>
+          </div>
+          <!-- /.form-group -->
+        </form>
+      </div>
+      <!-- /.tab-pane -->
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Morris.js charts -->
+<script src="bower_components/raphael/raphael.min.js"></script>
+<script src="bower_components/morris.js/morris.min.js"></script>
+<!-- Sparkline -->
+<script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<!-- jvectormap -->
+<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- Slimscroll -->
+<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+   <script src="https://kendo.cdn.telerik.com/2017.3.913/js/kendo.all.min.js"></script>
+   <script src="https://kendo.cdn.telerik.com/2017.3.913/js/kendo.timezones.min.js"></script>
+<!--
+   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+ --> 
+   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js"></script>
+   <script src="http://messaging-public.realtime.co/js/2.1.0/ortc.js"></script>
+
+<script src="./myJs/mainGrid.js"></script>
+<script src="./myJs/myMap1.js"></script>
+<script src="./myJs/mainMenu.js"></script>
+<script src="./myJs/weather.js"></script>
+<script src="./myJs/myCrew.js"></script>
+<script src="./myJs/myJob1.js"></script>
+<script src="./myJs/myChat1.js"></script>
+<script src="./myJs/mySchedual.js"></script>
+<script src="./myJs/dialogTelerik.js"></script>
+<script src="./myJs/myVehicle.js"></script>
+<script src="./myJs/tasks.js"></script>
+<script src="./myJs/myCharts2.js"></script>
+<script src="./myJs/entryForms.js"></script>
+
+
+<script>
+var map, map2;
+var markers = [];
+var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var labelIndex = 0;
+//$(document).ready(function () {
+
+// mySetValues
+var vehicleStatCode;
+
+
+// END mySetValues
+
+// EDS RUN SECTION
+chatUsers();
+showMainGrid();
+getJob1();
+getCrews();
+getJobGridData();
+chatUpdate('Dean S','user1-128x128.jpg','In coming Message text');
+//chatUpdateGet('Tim Jones','user1-128x128.jpg','Out going Message text');
+getAllVehicle("","");
+	mssgList();
+	appAlerts();
+	showTasks();
+getCalData('GD00KS');
+weather1();
+
+// url vars
+
+//alert(parmArray[0].val);
+if ( parmArray.length >= 2 ) {
+/*
+	switch(parmArray[2].id) {
+		case "jobRoute":
+			var jobRouteMode = parmArray[1].val;
+			var jobRouteID = parmArray[2].id;
+			setUp_jobroute(jobRouteID,jobRouteMode);
+		break;
+	};
+	*/
+};
+
+
+//document.getElementById("usrName").innerHTML  =  '<font size="1" color="white">'+cUserName+'</font>';
+document.getElementById("usrName2").innerHTML =  '<font size="1" color="white">'+cUserName+'</font>';
+
+//$("#scheduler").data("kendoScheduler").refresh();	
+//$('#scheduler').data('kendoScheduler').dataSource.read();
+document.getElementById("xcx").innerHTML =  'Welcome';
+//subTab1
+ $('[href="#tab_9-A"]').tab('show');
+getUtilData();
+getUtilData2();
+
+function subForm(x) {
+	switch(x) {
+		case 2:
+		// customer list
+		document.getElementById("formName").innerHTML =  '<p>Customer List</p>';
+		activeForm1 = "customerList";
+		$("#Edit0").load(winCodePath+"customerList.html");
+		break;
+		case 1:
+		// vehicles
+		document.getElementById("formName").innerHTML =  '<p>Vehicle Maintiance</p>';
+		activeForm1 = "divPageVehicle";
+		$("#Edit0").load(winCodePath+"divPageVehicle.html");
+		break;
+		default:
+			if ( cJobNo != null ) {
+				// disable dropDown until form closed
+				document.getElementById("formName").innerHTML =  '<p>Demo</p>';
+				activeForm1 = "XXXX";
+				activeFormRecId = 1;
+				$("#Edit0").load(winCodePath+"jobRoute.html");
+			} else{
+				alert("No Job Selected!");
+			};
+		break;
+
+	};
+
+}
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  e.target // newly activated tab
+  e.relatedTarget // previous active tab
+  var target = $(e.target).attr("href") // activated tab
+
+  //alert(e.target+" Yea! "+e.relatedTarget+" - "+target);
+  //alert(e.target+" Yea! "+target);
+//activaTab('tab_1-4A');
+//initMap1x();					
+  switch(target) {
+	case "#tab_1-2A":
+	// ??
+	initMap1x();
+	
+	break;
+	case "tab_1-3A":
+	
+	break;
+	case "#tab_1-4A":
+		//alert("#tab_1-4A");
+		 //$('[href="#tab_1-4A"]').tab('show');
+		//testForm1();
+		
+		//$("#Edit0").load(winCodePath+"divPageMaster.html?uid=EDS&recID=22&franID=GD00KS");
+
+		//$('[href="#menu3"]').tab('show');// this will go to the tab on loaded page
+	break;
+  };
+  
+// schedular update
+scheduler = $("#scheduler").data("kendoScheduler");		
+$("#scheduler").data("kendoScheduler").refresh();	
+$('#scheduler').data('kendoScheduler').dataSource.read();
+  
+})
+function activaTab(tab){
+ // $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+};
+function menu3(){
+ // $('[href="#menu3"]').tab('show');// this will go to the tab on loaded page
+}
+
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8tqvUEVXeSu5KWPuZTNtIavLFdwgBJcs&callback=initMap1"></script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+dean/kcll1two3
+email:
+fitz@liftedlogic.com
+Codycody1! 
+
+WinSCP
+
+
+http://www.greatdaymoving.com/cpanel
+greatday/ ponds55!skip
+old: greatday / *D5kB;6t)Ola
+
+http://www.greatdaymoving.com/dashboard
+rogerward/Ashford#22
+
+NEW E-MAIL
+website@greatdaymoving.net
+wbsGDM1z
+outgoing server: smtpout.secureserver.net port 80
+
+App Email:
+gdwebmasterks@gmail.com / gre@tday1
+https://cloud.google.com/maps-platform/?__utma=102347093.1001276194.1515940688.1531256238.1531256238.1&__utmb=102347093.0.10.1531256238&__utmc=102347093&__utmx=-&__utmz=102347093.1531256238.1.1.utmcsr=(direct)%7Cutmccn=(direct)%7Cutmcmd=(none)&__utmv=-&__utmk=199418158&_ga=2.65213678.1393825930.1531255800-1001276194.1515940688&authuser=1
+
+
+
+Grate Day moving
+fitz@liftedlogic.com / 1
+
+
+I copied greatdaymoving.com to our hosting. I updated the WordPress installation and added an admin account for us.
+
+http://www.greatdaymoving.com/cpanel
+Username: greatday
+Password: greatday / ponds55!skip
+
+
+rogerward / Ashford#22
+Temporary URL: http://i-mktg.net/~greatday
+WordPress admin section: http://www.greatdaymoving.com/wp-admin
+Username: icg
+Password: j123ckie
+
+[gravityform id=1 name=FreeEstimate Large title=false description=false]
+or
+<iframe src="http://www.greatdaymoving.com/newEstimate/" width="100%" height="700"></iframe>
+
+NEW:
+<iframe src="http://greatdaymoving.com/fView/Apps/kendo/Prod1/esti/estiF1.html" width="100%" height="700"></iframe>
+
+The development copy can be found here:
+http://i-mktg.net/~greatday/dev.greatdaymoving.com
+
+NOTES:
+newEstimate folder is production now
+
+//
+SELECT * 
+FROM basicinfocapture
+ORDER BY todaysdate ASC 
+
+SELECT * FROM `jobs` WHERE  jobstatus =1
+AND daterequested = '2014/04/26'
+ORDER BY daterequested asc
+
+SELECT id, jobstatus, STR_TO_DATE(submitteddate, '%d/%m/%y'), daterequested, firstname, lastname FROM `jobs` WHERE  jobstatus =1
+AND daterequested >= '2014/05/01'
+ORDER BY daterequested asc
+
+SELECT id, jobstatus, submitteddate, daterequested, firstname, lastname FROM `jobs` WHERE  jobstatus =1
+AND daterequested >= '2014/05/01'
+ORDER BY daterequested asc
+
+select DATE_FORMAT(ts1, '%m-%d-%Y')as rDate, count(id) as cnt
+from jobs WHERE jobstatus = 1
+AND ts1 != '0000-00-00 00:00:00'
+AND MONTH(ts1) = 5
+group by DATE(ts1)
+
+ALTER TABLE announcements ADD COLUMN ts1 TIMESTAMP 
+  DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() AFTER from_office_to_job;
+
+ALTER TABLE announcements ADD COLUMN ts2 TIMESTAMP 
+  DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() AFTER ts1;
+
+ALTER TABLE announcements DROP ts1;
+
+SELECT COUNT(id) as cnt, ts1, DATE(ts1)as dt from jobs 
+WHERE jobstatus = 1 
+AND ts1 != '0000-00-00 00:00:00' 
+AND YEAR(ts1) = 2014
+AND MONTH(ts1) = 6 
+GROUP BY dt asc
+
+SELECT COUNT(id) as cnt, DATE(ts1)as dt, MONTH(ts1) as mo from jobs 
+WHERE jobstatus = 1 
+AND ts1 != '0000-00-00 00:00:00' 
+AND YEAR(ts1) = 2014
+
+GROUP BY dt asc
+
+SELECT name, abbreviations FROM `states`
+SELECT  CONCAT('{ text: @ ',name),  CONCAT('@, value: @',abbreviations) FROM `states`
+
