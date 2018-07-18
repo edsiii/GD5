@@ -1,0 +1,306 @@
+DROP TABLE IF EXISTS jobP1;
+
+CREATE TABLE IF NOT EXISTS jobP1 (
+    idx int NOT NULL AUTO_INCREMENT,
+    clientID varchar(20) UNIQUE,	
+    FirstName varchar(25) NOT NULL,
+    LastName varchar(25) NOT NULL,
+	addr1 varchar(50),
+	city varchar(50),	
+	state varchar(2),
+	zipCode varchar(10),
+	phone1 varchar(15),	
+	phone2 varchar(15),	
+	phone3 varchar(15),	
+	email varchar(100),		
+	jobType varchar(10),
+	payMethod int,	
+	cc1 varchar(50),
+	cc1ExpDate date,
+	cc2 varchar(50),
+	cc2ExpDate date,
+	cc3 varchar(50),
+	cc3ExpDate date,
+	poNo varchar(50),
+	checkID varchar(50),
+	moveDate date,
+	
+	active int DEFAULT 0,
+    franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    edate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    lupdte DATETIME DEFAULT CURRENT_TIMESTAMP,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='jobP1 table';
+
+DROP TRIGGER if exists jobP1_after_insert;
+
+CREATE TRIGGER jobP1_after_insert AFTER INSERT
+   ON jobP1 FOR EACH ROW
+
+    INSERT INTO jobP2
+   ( jobID,
+     clientID, franID)
+   VALUES
+   ( NEW.idx,
+     NEW.clientID, NEW.franID );
+
+
+	 
+
+DROP TABLE IF EXISTS jobP2;
+CREATE TABLE IF NOT EXISTS jobP2 (
+	idx int NOT NULL AUTO_INCREMENT,
+	jobID int NOT NULL,
+    clientID varchar(20),
+	
+	startAddr1 varchar(50),
+	startCity varchar(50),	
+	startState varchar(2),
+	startZip varchar(10),
+	startGpsLat varchar(20),
+	startGpsLon varchar(20),
+	startArivalTime datetime,
+	startDepartureTime datetime,
+	
+	endAddr1 varchar(50),
+	endCity varchar(50),	
+	endState varchar(2),
+	endZip varchar(10),
+	endGpsLat varchar(20),
+	endGpsLon varchar(20),
+	endArivalTime datetime,
+	endDepartureTime datetime,
+	
+	routeID varchar(20),
+	routeDesc varchar(400),
+	routeDistance int,
+	directionsTxt varchar(1000),
+	routeCrew varchar(10),
+	routeStatus varchar(10),
+	vehicleIds varchar(100),
+
+    franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    edate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    lupdte DATETIME DEFAULT CURRENT_TIMESTAMP,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='jobP2 route table';
+
+DROP TRIGGER if exists jobP2_after_insert;
+CREATE TRIGGER jobP2_after_insert AFTER INSERT
+   ON jobP2 FOR EACH ROW
+
+    INSERT INTO jobP3
+   ( jobID,
+     clientID, franID)
+   VALUES
+   ( NEW.idx,
+     NEW.clientID, NEW.franID );
+
+ 
+
+DROP TABLE IF EXISTS jobP3;
+CREATE TABLE IF NOT EXISTS jobP3 (
+	idx int NOT NULL AUTO_INCREMENT,
+	jobID int NOT NULL,
+    clientID varchar(20),
+	jobType varchar(10),
+	
+	// house apt, etc info here
+	
+	franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    edate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    lupdte DATETIME DEFAULT CURRENT_TIMESTAMP,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='jobP3 detail table';
+
+DROP TRIGGER if exists jobP3_after_insert;
+CREATE TRIGGER jobP3_after_insert AFTER INSERT
+   ON jobP3 FOR EACH ROW
+
+    INSERT INTO jobP4
+   ( jobID,
+     clientID, franID)
+   VALUES
+   ( NEW.idx,
+     NEW.clientID, NEW.franID );
+	 
+
+DROP TABLE IF EXISTS jobP4;
+CREATE TABLE IF NOT EXISTS jobP4 (
+	idx int NOT NULL AUTO_INCREMENT,
+	jobID int NOT NULL,
+    clientID varchar(20),
+	
+	spItemDesc varchar(100),
+	spItemRate int,
+	spItemInstructions varchar(400),
+	spItemQty int,
+	
+	franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    edate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    lupdte DATETIME DEFAULT CURRENT_TIMESTAMP,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='jobP4 special items table';
+
+
+// server
+
+DROP TABLE IF EXISTS jobP1;
+
+CREATE TABLE IF NOT EXISTS jobP1 (
+    idx int NOT NULL AUTO_INCREMENT,
+    clientID varchar(20) UNIQUE,	
+    FirstName varchar(25) NOT NULL,
+    LastName varchar(25) NOT NULL,
+	addr1 varchar(50),
+	city varchar(50),	
+	state varchar(2),
+	zipCode varchar(10),
+	phone1 varchar(15),	
+	phone2 varchar(15),	
+	phone3 varchar(15),	
+	email varchar(100),		
+	jobType varchar(10),
+	payMethod int,	
+	cc1 varchar(50),
+	cc1ExpDate date,
+	cc2 varchar(50),
+	cc2ExpDate date,
+	cc3 varchar(50),
+	cc3ExpDate date,
+	poNo varchar(50),
+	checkID varchar(50),
+	moveDate date,
+	
+	active int DEFAULT 0,
+    franID varchar(10),
+    delflg int DEFAULT 0,
+    edate DATETIME ,
+    lupdte DATETIME ,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='jobP1 table';
+
+DROP TRIGGER if exists jobP1_after_insert;
+
+CREATE TRIGGER jobP1_after_insert AFTER INSERT
+   ON jobP1 FOR EACH ROW
+
+    INSERT INTO jobP2
+   ( jobID,
+     clientID, franID)
+   VALUES
+   ( NEW.idx,
+     NEW.clientID, NEW.franID );
+
+
+	 
+
+DROP TABLE IF EXISTS jobP2;
+CREATE TABLE IF NOT EXISTS jobP2 (
+	idx int NOT NULL AUTO_INCREMENT,
+	jobID int NOT NULL,
+    clientID varchar(20),
+	
+	startAddr1 varchar(50),
+	startCity varchar(50),	
+	startState varchar(2),
+	startZip varchar(10),
+	startGpsLat varchar(20),
+	startGpsLon varchar(20),
+	startArivalTime datetime,
+	startDepartureTime datetime,
+	
+	endAddr1 varchar(50),
+	endCity varchar(50),	
+	endState varchar(2),
+	endZip varchar(10),
+	endGpsLat varchar(20),
+	endGpsLon varchar(20),
+	endArivalTime datetime,
+	endDepartureTime datetime,
+	
+	routeID varchar(20),
+	routeDesc varchar(400),
+	routeDistance int,
+	directionsTxt varchar(1000),
+	routeCrew varchar(10),
+	routeStatus varchar(10),
+	vehicleIds varchar(100),
+
+    franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    edate DATETIME ,
+    lupdte DATETIME ,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='jobP2 route table';
+
+DROP TRIGGER if exists jobP2_after_insert;
+CREATE TRIGGER jobP2_after_insert AFTER INSERT
+   ON jobP2 FOR EACH ROW
+
+    INSERT INTO jobP3
+   ( jobID,
+     clientID, franID)
+   VALUES
+   ( NEW.idx,
+     NEW.clientID, NEW.franID );
+
+ 
+
+DROP TABLE IF EXISTS jobP3;
+CREATE TABLE IF NOT EXISTS jobP3 (
+	idx int NOT NULL AUTO_INCREMENT,
+	jobID int NOT NULL,
+    clientID varchar(20),
+	jobType varchar(10),
+	
+
+	
+	franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    edate DATETIME ,
+    lupdte DATETIME ,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='jobP3 detail table';
+
+DROP TRIGGER if exists jobP3_after_insert;
+CREATE TRIGGER jobP3_after_insert AFTER INSERT
+   ON jobP3 FOR EACH ROW
+
+    INSERT INTO jobP4
+   ( jobID,
+     clientID, franID)
+   VALUES
+   ( NEW.idx,
+     NEW.clientID, NEW.franID );
+	 
+
+DROP TABLE IF EXISTS jobP4;
+CREATE TABLE IF NOT EXISTS jobP4 (
+	idx int NOT NULL AUTO_INCREMENT,
+	jobID int NOT NULL,
+    clientID varchar(20),
+	
+	spItemDesc varchar(100),
+	spItemRate int,
+	spItemInstructions varchar(400),
+	spItemQty int,
+	
+	franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    edate DATETIME ,
+    lupdte DATETIME,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='jobP4 special items table';

@@ -1,0 +1,61 @@
+DROP TABLE IF EXISTS vehicle;
+
+CREATE TABLE IF NOT EXISTS `vehicle` (
+  `idx` int(11) NOT NULL,
+  `trucknumber` int(11) NOT NULL,
+  `index` int(11) NOT NULL,
+  `truckname` varchar(255) NOT NULL,
+  `truckcolor` int(11) NOT NULL,
+  franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    uid int DEFAULT 0,
+    edate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    lupdte DATETIME DEFAULT CURRENT_TIMESTAMP,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='vehicle table';
+
+--ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vehicle`
+--
+
+INSERT INTO `vehicle` (`idx`, `trucknumber`, `index`, `truckname`, `truckcolor`, `franID`) VALUES
+(1, 999999999, 0, 'ESTIMATE', 10, 'GD00KS'),
+(2, 1, 1, 'Truck 003', 1, 'GD00KS'),
+(3, 2, 2, 'Truck 004', 2, 'GD00KS'),
+(4, 3, 3, 'Truck 005', 3, 'GD00KS'),
+(5, 1, 0, '1', 1, 1002),
+(6, 2, 1, '2', 2, 1002),
+(7, 3, 2, '3', 3, 1002),
+(8, 4, 3, '4', 4, 1002),
+(9, 4, 4, 'Truck 014', 4, 'GD00KS'),
+(10, 5, 5, 'Truck 016', 5, 'GD00KS'),
+(11, 6, 6, 'Truck 018', 6, 'GD00KS'),
+(12, 7, 7, 'Roger', 7, 'GD00KS'),
+(13, 8, 8, 'Jake', 8, 'GD00KS'),
+(14, 9, 9, 'Neil', 9, 'GD00KS');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `trucks`
+--
+ALTER TABLE `trucks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `trucks`
+--
+ALTER TABLE `trucks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

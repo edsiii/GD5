@@ -1,0 +1,168 @@
+
+DROP TABLE IF EXISTS employee;
+
+CREATE TABLE IF NOT EXISTS `employee` (
+  `idx` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` varchar(20) UNIQUE,
+  `active` int(11) NOT NULL,
+  `firstname` varchar(25) NOT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `nickname` varchar(25) NOT NULL,
+  `fullname` varchar(55) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `position` varchar(25) NOT NULL,
+  `franchise` varchar(25) NOT NULL,
+  `startdate` DATE,
+  `terminationdate` DATE,
+  `address` varchar(55) NOT NULL,
+  `city` varchar(55) NOT NULL,
+  `state` varchar(20) NOT NULL,
+  `zipcode` varchar(10) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `cell` varchar(20) NOT NULL,
+  `cell_provider` varchar(55) NOT NULL,
+  `notes` varchar(5000) NOT NULL,
+  `payratehelper` varchar(55) NOT NULL,
+  `payratedriver` varchar(55) NOT NULL,
+  `dob` DATE,
+  `stateid` varchar(55) NOT NULL,
+  `issuingstate` varchar(55) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `emergencycontactname` varchar(55) NOT NULL,
+  `emergencycontactrelationship` varchar(55) NOT NULL,
+  `emergencycontactphone` varchar(55) NOT NULL,
+  `password` varchar(20),
+  `permission` varchar(20),
+  `ss_num` varchar(12) NOT NULL,
+  `gender` varchar(5) NOT NULL,
+  `marital_status` varchar(5) NOT NULL,
+  `state_dependents` varchar(55) NOT NULL,
+  `fed_dependents` varchar(55) NOT NULL,
+  `fed_tax` varchar(55) NOT NULL,
+  `state_tax` varchar(55) NOT NULL,
+  `voluntary_deductions` varchar(55) NOT NULL,
+  
+
+  franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    uid int DEFAULT 0,
+    edate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    lupdte DATETIME DEFAULT CURRENT_TIMESTAMP,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='employee table';
+
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employee` (`idx`, `active`, `firstname`, `lastname`, `nickname`, `fullname`, `status`, `position`, `franchise`, `startdate`, `terminationdate`, `address`, `city`, `state`, `zipcode`, `phone`, `cell`, `cell_provider`, `notes`, `payratehelper`, `payratedriver`, `dob`, `stateid`, `issuingstate`, `email`, `emergencycontactname`, `emergencycontactrelationship`, `emergencycontactphone`, `password`, `permission`, `ss_num`, `gender`, `marital_status`, `state_dependents`, `fed_dependents`, `fed_tax`, `state_tax`, `voluntary_deductions`) VALUES
+(1, 0, 'John', 'Smith', '', 'Smith, John', '2', '0', '1001', '05/01/2013', '05/20/2013', '6300 W. 81st Terrace', 'Overland Park', '15', '66204', '7853174402', '7853174402', '', 'This employee Rocks!', '10', '12', '07/04/1981', 'K00558255', '15', 'fitz@liftedlogic.com', 'Mary', 'Mother', '9138976108', 'temp123', '', '', '', '', '', '', '', '', ''),
+(2, 0, 'Paul', 'Robinson', '', 'Robinson, Paul', '0', '1', '1001', '05/10/2013', '05/20/2013', '6300 W. 81st Terrace', 'Overland Park', '15', '66204', '7853174402', '7853174402', '', 'This employee Rocks!', '10', '12', '07/04/1981', 'K00558255', '15', 'fitz@liftedlogic.com', 'Mary', 'Mother', '9138976108', 'temp123', '', '', '', '', '', '', '', '', ''),
+(3, 0, 'Kevin', 'Brown', '', 'Brown, Kevin', '0', '1', '1001', '05/10/2013', '05/20/2013', '6300 W. 81st Terrace', 'Overland Park', '15', '66204', '7853174402', '7853174402', '', 'This employee Rocks!', '10', '12', '07/04/1981', 'K00558255', '15', 'fitz@liftedlogic.com', 'Mary', 'Mother', '9138976108', '', '', '', '', '', '', '', '', '', ''),
+(4, 0, 'Mark', 'Waters', '', 'Waters, Mark', '0', '1', '1001', '05/10/2013', '05/20/2013', '6300 W. 81st Terrace', 'Overland Park', '15', '66204', '7853174402', '7853174402', '', 'This employee Rocks!', '10', '12', '07/04/1981', 'K00558255', '15', 'fitz@liftedlogic.com', 'Mary', 'Mother', '9138976108', '', '', '', '', '', '', '', '', '', ''),
+(5, 0, 'Brad', 'Larson', '', 'Larson, Brad', '0', '0', '1001', '05/24/2013', '05/29/2013', '6300 w 81st terr', 'overland park', '15', '66204', '7853174402', '7853174402', '', 'This is a test employee', '8.00', '10', '05/24/2013', 'k00558255', '24', 'fitz@liftedlogic.com', 'Karl', 'Father', '', '', '', '', '', '', '', '', '', '', ''),
+(7, 0, 'Adam', 'Fichman', '', 'Fichman, Adam', '0', '2', '1001', '05/31/2013', '05/31/2013', '15547 w 109th street', 'lenexa', '15', '66219', '8162987018', '7853174402', '', 'test employee', '8.23', '10.25', '07/04/1981', '456456446', '0', 'adam@liftedlogic.com', 'Dog', 'Brulee', '', 'adam', '', '', '', '', '', '', '', '', ''),
+(8, 0, 'Christina', 'Black', '', 'Black, Christina', '0', '1', '1001', '05/27/2013', '12/31/1969', '123 somewhere terrace', 'Olathe', '15', '66214', '9876543210', '9876543210', '', 'This is a test employee', '8.23', '10.25', '02/06/2008', 'koo554444', '15', 'christina.black@gmail.com', 'Carol Black', 'Mother', '', '', '', '', '', '', '', '', '', '', ''),
+(9, 0, 'Jerry', 'Stein', '', 'Stein, Jerry', '0', '2', '1001', '05/27/2013', '', '321 nowhere', 'olathe', '15', '66222', '987653210', '9876543210', '', 'test notes for jerry stein', '8.80', '10.50', '05/08/2007', 'k00554444', '15', 'test@gmail.com', 'Dan', 'father', '', '', '', '', '', '', '', '', '', '', ''),
+(13, 1, 'Cameron', 'Bray', '', 'Bray, Cameron', '0', '1', '1001', '2010/05/11', '1969/12/31', '1919 North 76th Street', 'Kansas City', '15', '66104', '', '8166123961', '', '', '10', '12.25', '1977/02/18', 'K203175019', '15', 'cambray1977@gmail.com', 'Jimmy Bray', 'Father', '816-523-3022', '', '', '', '', '', '', '', '', '', ''),
+(10, 0, 'Roger', 'Ward', '', 'Ward, Roger', '0', '1', '1001', '12/31/1969', '12/31/1969', '', '', '0', '', '', '', '', '', '10', '11', '12/31/1969', '', '0', 'roger@greatdaymoving.com', '', '', '', 'roger', '1', '', '', '', '', '', '', '', ''),
+(11, 0, 'Neil', 'Gunsalus', '', 'Gunsalus, Neil', '0', '2', '1001', '12/31/1969', '12/31/1969', '', '', '0', '', '', '', '', '', '10', '12', '12/31/1969', '', '0', 'neilg@greatdaymoving.com', '', '', '', 'neilg', '', '', '', '', '', '', '', '', ''),
+(12, 0, 'James', 'Smith', '', 'Smith, James', '0', '1', '1001', '2012/03/01', '1969/12/31', '1022 NE 10th St', 'Blue Springs', '24', '64014', '', '8163012192', '6', '', '9', '13', '1987/04/16', 'N136196002', '24', 'thegent8705@gmail.com', '', '', '', '1', '', '', '', '', '', '', '', '', ''),
+(14, 1, 'Roger', 'Ward', '', 'Ward, Roger', '0', '0', '1001', '12/31/1969', '12/31/1969', '', '', '0', '', '', '', '', '', '10', '11', '12/31/1969', '', '0', 'roger@greatdaymoving.com', '', '', '', '1', '1', '', '', '', '', '', '', '', ''),
+(15, 0, 'test', 'employee', '', 'employee, test', '-1', '-1', '1001', '', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(16, 0, 'Neil', 'Gunsalus, III', '', 'Gunsalus, III, Neil', '0', '0', '1001', '02/14/2012', '12/31/1969', '4931 Stoneback Drive', 'Merriam', '15', '66047', '7727749070', '7854090790', '', '', '0', '0', '12/23/1987', 'K03-34-8339', '15', 'neilg@greatdaymoving.com', 'Myron Gunsalus, Jr.', 'Father', '', '1', '', '', '', '', '', '', '', '', ''),
+(17, 0, 'Bobby', 'Fowler', '', 'Fowler, Bobby', '1', '2', '1001', '2012/06/11', '1969/12/31', '10106 Hilcrest', 'Kansas City', '24', '64134', '', '8167998748', '', '', '9.5', '11', '1969/12/31', '', '-1', 'bjfowler816@gmail.com', 'Vicky Fowler', 'Mother', '', '1', '', '', '', '', '', '', '', '', ''),
+(18, 0, 'Rob', 'Pfuetze', 'fatzyyyy', 'Pfuetze, Rob', '0', '1', '1001', '06/17/2013', '12/31/1969', '6300 w 81st terrace', 'Overland Park', '15', '66204', '7853174402', '7853174402', '6', 'test employee', '10', '15', '12/31/1969', 'k00558255', '15', 'dean@liftedlogic.com', 'Mary Jane', 'Mother', '9876543210', 'none', '', '5555555555', '1', '1', '55', '66', '0', '0', '0'),
+(19, 0, 'Calvin', 'Chalmers', 'Cal', 'Chalmers, Calvin', '0', '1', '1001', '2010/05/11', '1969/12/31', '7215 East 99th Street', 'Kansas City', '23', '64134', '', '9139966180', '4', '', '11', '11', '1969/12/31', 'N203160026', '24', 'kahliko68@gmail.com', 'Bettie Chalmers', 'Mother', '', '1', '', '', '', '', '', '', '', '', ''),
+(20, 0, 'Nicholas', 'Hammond', '', 'Hammond, Nicholas', '1', '2', '1001', '06/05/2013', '12/31/1969', '1224 West Bluff', 'Kansas City', '24', '64108', '', '8166946399', '', '', '9', '', '12/31/1969', 'R125138008', '24', 'nichsin@msn.com', 'Wilson Hammond Sr.', 'Father', '', '1', '', '', '', '', '', '', '', '', ''),
+(21, 1, 'Kenny', 'Pulce', '', 'Pulce, Kenny', '0', '1', '1001', '09/11/2012', '', '8800 Wornall Road', 'Kansas City', '24', '64114', '', '8163941947', '', '', '10', '11', '', 'G213091024', '24', 'kenny.pulce@gmail.com', 'Carla Pulce', 'Wife', '', '1', '', '', '', '', '', '', '', '', ''),
+(22, 0, 'Jarrod', 'Holt', '', 'Holt, Jarrod', '0', '1', '1001', '2012/09/15', '1969/12/31', '1609 South Early Drive', 'Kansas City', '15', '66103', '', '9133750926', '', '', '10', '10', '1969/12/31', 'L112288017', '24', 'jarrodholt1984@gmail.com', '', '', '', '1', '', '486-90-5394', '1', '1', '0', '0', '0', '0', '0'),
+(28, 0, 'Nick', 'Hammond', '', 'Hammond, Nick', '0', '1', '1001', '', '', '', '', '-1', '', '', '8166946399', '', '', '9', '11', '', '', '24', 'chunkysinclair@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(23, 0, 'Connor', 'Rubeck', '', 'Rubeck, Connor', '0', '2', '1001', '02/07/2012', '', '962 South 73rd Place', 'Kansas City', '15', '66111', '', '9132151664', '', '', '11', '', '', 'K02-61-5952', '15', 'mcrubeck@yahoo.com', 'Susan Rubeck', 'Mother', '', '1', '', '', '', '', '', '', '', '', ''),
+(24, 0, 'Dewan', 'White', '', 'White, Dewan', '1', '2', '1001', '2013/06/06', '1969/12/31', '6431 College Ave', 'Kansas City', '24', '64132', '', '8163013335', '', '', '9', '', '1969/12/31', 'U213152001', '24', '2013dunkonu@gmail.com', 'Joan White', 'Grandmother', '', '1', '', '', '', '', '', '', '', '', ''),
+(25, 0, 'Jory', 'Watkins', '', 'Watkins, Jory', '0', '2', '1001', '05/15/2013', '', '524 Ohio Street', 'Lawrence', '15', '66047', '', '8163049799', '', '', '9.00', '', '', 'K01-81-3001', '15', '', 'Emily Watkins', 'Mother', '', '1', '', '', '', '', '', '', '', '', ''),
+(26, 0, 'Sam', 'Stewart', '', 'Stewart, Sam', '0', '2', '1001', '06/15/2013', '12/31/1969', '9131 Boehm Dr', 'Lenexa', '15', '66219', '', '9135530169', '', '', '9', '', '12/31/1969', 'K03-03-6335', '15', 'samuelstewart_11@yahoo.com', '', 'Mother', '913-963-0555', '1', '', '', '', '', '', '', '', '', ''),
+(27, 0, 'Adrian', 'Williams', '', 'Williams, Adrian', '1', '2', '1001', '2013/05/31', '1969/12/31', '4506 Park', 'Kansas City', '24', '64130', '', '8162151138', '', '', '9', '', '1969/12/31', 'M203070004', '24', 'wilson.hammond@gmail.com', 'Lisa Green', 'Lady of the Family', '', '1', '', '', '', '', '', '', '', '', ''),
+(29, 0, 'Wilson', 'Hammond', '', 'Hammond, Wilson', '0', '1', '1001', '06/14/2013', '07/02/1985', '3336 Gillham Rd apt 1E', 'Kansas City', '24', '64109', '', '8163590549', '', '', '9', '11', '07/02/1985', 'L203086023', '24', 'wilson.hammond@gmail.com', 'Rena Hammond', 'Mother', '816-694-6398', '', '', '554-91-7669', '1', '1', '', '', '', '', ''),
+(30, 0, 'Cordi', 'Pascal', '', 'Pascal, Cordi', '1', '2', '1001', '2013/06/15', '1969/12/31', '14814 W 81st Place', 'Lenexa ', '15', '66215', '', '9136093186', '', '', '9.5', '11', '1969/12/31', 'K02-93-0724', '15', 'cordikpascal@gmail.com', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(31, 0, 'Prince', 'Qualls', '', 'Qualls, Prince', '0', '2', '1001', '06/14/2013', '12/31/1969', '3721 E 60th St', 'Kansas City', '24', '64130', '', '8167785828', '', 'SS# 351-54-2687\nGender: Male\nSalery Rate: Weekly\nMarital Status: Single\nNumber of dependents: 2 Fed, 2 State\nadd''l Fed tax: 0\nadd''l state tax: 0\nVoluntary deductions: 0\n', '9', '', '12/31/1969', 'R213026014', '24', 'princetarronqualls@yahoo.com', 'Allice Segal', 'Mother', '', '', '', '351-54-2687', '1', '1', '2', '', '0', '0', '0'),
+(32, 0, 'James', 'Wooten', '', 'Wooten, James', '1', '2', '1001', '2013/06/30', '1969/12/31', '6113 E 153rd St', 'Grandview', '24', '64030', '', '8166064332', '', 'SS#: 351-54-7886', '9', '', '1969/12/31', 'L203145002', '24', 'mrsmooth170@gmail.com', 'Stephanie Wooten', 'Sister', '', '', '', '', '', '', '', '', '', '', ''),
+(33, 0, 'test', 'test', '', 'test, test', '0', '0', '1001', '', '', '1', '1', '0', '1', '1', '1', '', '1', '1', '1', '', '1', '3', '1', '1', '1', '', '', '', '1', '1', '1', '1', '', '1', '1', '1'),
+(34, 0, 'Derrian', 'Henderson', '', 'Henderson, Derrian', '0', '2', '1001', '07/11/2013', '', '4047 N Bennington Ave #203', 'Kansas City', '24', '64117', '', '8168881371', '', '', '9', '', '', 'K02915992', '15', 'derrian.henderson@yahoo.com', 'Cordi Pascal', 'Roommate/Friend', '', '', '', '514064701', '1', '1', '0', '1', '0', '0', '0'),
+(35, 0, 'Robert', 'Rooks', 'Bob', 'Rooks, Robert', '0', '2', '1001', '07/11/2013', '', 'P.O. Box 5418', 'Topeka', '15', '66607', '', '6206448210', '', '', '9', '', '01/18/1993', 'k03-09-3620', '15', 'bigbobrr89@yahoo.com', 'Paula Rooks', 'Mother', '', '', '', '511-08-6411', '1', '1', '0', '0', '0', '0', '0'),
+(36, 0, 'Jermaine', 'Unanka', '', 'Unanka, Jermaine', '1', '2', '1001', '2013/07/19', '1969/12/31', '12300 Corrington Ave', 'Grandview', '15', '64030', '8167678402', '8167269961', '', '', '9', '', '1990/10/14', 'T213330022', '24', 'jcu030@lionmail.lindenwood.edu', 'Comfort Bandy', 'Mom', '8165829343', '', '', '493047348', '1', '1', '0', '0', '0', '0', '0'),
+(37, 0, 'Cameron', 'Brown', '', 'Brown, Cameron', '2', '2', '1001', '2013/05/15', '1969/12/31', '1903 S 41 Street', 'Kansas City', '24', '66106', '', '9139992061', '', '', '9', '', '1991/04/24', '', '-1', 'camronbrownloo@yahoo.com', 'Alonda Brown', 'Mother', '', '', '', '510062209', '1', '1', '2', '2', '0', '0', '0'),
+(38, 0, 'Nick', 'Cox', '', 'Cox, Nick', '1', '2', '1001', '2012/02/13', '1969/12/31', '2533 North 57th Drive', 'Kansas City', '15', '66104', '9135961269', '9132007660', '', '', '9', '', '1989/01/03', 'K04-62-5389', '15', 'headache07@msn.com', 'Patrice Cox', 'Mother', '', '', '', '513-98-0810', '1', '1', '0', '0', '0', '0', '0'),
+(39, 1, 'Cameron', 'Hammond', '', 'Hammond, Cameron', '-1', '-1', '1001', '06/14/2013', '', '5536 Rockhill Rd', 'Kansas City', '24', '64110', '', '8167162726', '', '', '9', '', '06/07/1987', '', '-1', 'czarcam87@gmail.com', 'Wilson Hammond', 'Father', '', '', '', '499025189', '1', '1', '1', '5', '0', '0', '0'),
+(40, 0, 'Diant''e', 'Hargrove', '', 'Hargrove, Diant''e', '1', '2', '1001', '2012/08/01', '1969/12/31', '9528 Overhill Road', 'Kansas City', '24', '64134', '8165032495', '8169823610', '', '', '9.25', '', '1982/03/27', 'J203197015', '24', '', 'Janae Shelby', 'Fiance', '', '', '', '495-86-5374', '1', '1', '0', '0', '00', '0', '0'),
+(41, 0, 'John', 'Heintzelman', 'Jack', 'Heintzelman, John', '0', '2', '1001', '05/30/2013', '', '700 N. 17th', 'Kansas City', '15', '66102', '', '9134498333', '', '', '9', '', '06/13/1994', '', '-1', 'heintzelman_jack@yahoo.com', 'Nancy Heintzelman', 'Mother', '', '', '', '511110446', '1', '1', '0', '0', '0', '0', '0'),
+(42, 0, 'Aryan', 'Long', '', 'Long, Aryan', '1', '2', '1001', '2011/07/29', '1969/12/31', '16920 West 127th Street', 'Olathe', '15', '66062', '', '8165600059', '', '', '10', '', '1989/02/11', '', '-1', 'longaryan@rocketmail.com', 'Robyn Locke', 'Mother', '', '', '', '512-06-5885', '1', '1', '0', '0', '0', '0', '0'),
+(43, 0, 'Alexander', 'Martinez', 'Alex', 'Martinez, Alexander', '0', '2', '1001', '05/04/2013', '', '325 North 13th Street', 'Kansas City', '15', '66102', '9137068180', '9136696225', '', '', '9', '', '12/25/1993', 'K03-05-9087', '15', '', 'Michaela Hayes', 'Wife', '', '', '', '515-08-5549', '1', '1', '0', '0', '0', '0', '0'),
+(44, 0, 'Steve', 'Perry', '', 'Perry, Steve', '0', '2', '1001', '04/09/2013', '', '9928 Benson Street', 'Overland Park', '15', '66212', '', '9133092151', '', '', '9', '', '06/16/1971', 'K00-01-5624', '15', 'steventravisperry@gmail.com', 'Regina Echelmyer', 'Girlfriend', '', '', '', '512-68-1357', '1', '1', '1', '2', '0', '0', '0'),
+(45, 0, 'Robin', 'Riding', '', 'Riding, Robin', '1', '2', '1001', '2012/07/27', '1969/12/31', '2115 North 22nd Street', 'Kansas City', '15', '66104', '', '9135750280', '', '', '9', '', '1988/01/11', 'K01-84-2274', '15', '', 'Robin Riding Sr ', 'Father', '', '', '', '513-06-0785', '1', '1', '0', '0', '0', '0', '0'),
+(46, 0, 'Terrell', 'Simpson', '', 'Simpson, Terrell', '0', '2', '1001', '2012/09/21', '1969/12/31', '4011 E 70th Terr', 'Kansas City', '24', '64132', '', '8164370500', '', '', '9.5', '', '1982/05/16', '', '-1', '', '', '', '', '', '', '490-86-0851', '1', '', '', '', '', '', ''),
+(47, 0, 'Tyrone', 'Stubbs', '', 'Stubbs, Tyrone', '0', '2', '1001', '04/13/2013', '', '1237 E. Johnston Street', 'Olathe', '15', '66061', '', '5618096135', '', '', '9', '', '10/07/1987', 'K02-80-2106', '15', 'tystubbs@aol.com', 'Bernard Panker', '', '', '', '', '593-86-7205', '1', '1', '0', '0', '0', '0', '0'),
+(48, 0, 'Talem', 'Turner', '', 'Turner, Talem', '0', '2', '1001', '05/31/2012', '', '526 West Mulberry', 'Olathe', '15', '66061', '', '9136012669', '', '', '9', '', '02/18/1989', 'K02-11-0261', '15', 'talemturner3333@gmail.com', 'Frances Duncan ', 'Mother', '', '', '', '513-98-1644', '1', '1', '0', '0', '0', '0', '0'),
+(49, 0, 'Nicholas', 'Hammond', '', 'Hammond, Nicholas', '-1', '-1', '1001', '', '', '', '', '-1', '', '', '', '', '', '9', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(50, 0, 'Brian', 'McCormick', '', 'McCormick, Brian', '1', '2', '1001', '1969/12/31', '1969/12/31', '', '', '-1', '', '', '', '', '', '10', '', '1969/12/31', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(51, 1, 'Rolla', 'Hansen', '', 'Hansen, Rolla', '0', '2', '1001', '2013/06/28', '1969/12/31', '13107 W 88th Ct # 67', 'Lenexa', '15', '66215', '', '9132060542', '', '', '10.25', '11.25', '1992/09/15', 'k02-89-3705', '15', 'rhansen1992@gmail.com', '', '', '', '', '', '509-08-7860', '1', '1', '1', '3', '0', '0', '0'),
+(52, 0, 'Trenton', 'Williams', 'Trent', 'Williams, Trenton', '-1', '-1', '1001', '', '', '', '', '-1', '', '', '', '', '', '9', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(53, 0, 'Maurice', 'Moore', '', 'Moore, Maurice', '-1', '-1', '1001', '', '', '', '', '-1', '', '', '', '', '', '9', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(54, 0, 'Jason', 'Murray', '', 'Murray, Jason', '-1', '-1', '1001', '', '', '', '', '-1', '', '', '', '', '', '10', '11', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(55, 0, 'Bradley', 'Graves', 'Brad', 'Graves, Bradley', '0', '2', '1001', '07/30/2013', '', '6924 Barkley ', 'Overland Park', '15', '66204', '9134325435', '9139542925', '', '', '9', '', '03/01/1986', 'K02-37-6990', '15', 'bradgraves86@gmail.com', 'Paul Cast', 'Father', '913-909-9349', '', '', '514-04-8411', '1', '1', '1', '1', '0', '0', '0'),
+(78, 0, 'Loren ', 'Thibodo', '', 'Thibodo, Loren ', '0', '2', '1001', '2014/04/10', '', '7506 w 157th terrace', 'Overland Park', '15', '66223', '', '9139800185', '', '', '9', '12', '1984/04/28', '', '-1', 'lorenthibodo@gmail.com', 'Sarah McGuffin', 'Mother', '', '', '', '510-88-5394', '1', '1', '0', '0', '0', '0', '0'),
+(56, 0, '', '', '', ', ', '-1', '-1', '1001', '', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(57, 1, 'Chevis', 'Burch', 'C', 'Burch, Chevis', '0', '2', '1001', '2013/08/06', '1969/12/31', '4419 Adams', 'Kansas City', '15', '66102', '', '9135140023', '4', '', '9', '', '1984/02/11', 'M213025043', '24', 'cburch243@gmail.com', 'Destinee Benson', 'Girlfriend', '8163686003', '', '', '498889277', '1', '1', '0', '0', '0', '0', '0'),
+(58, 0, 'Marco', 'Maddox', '', 'Maddox, Marco', '1', '2', '1001', '2013/08/26', '1969/12/31', '4929 Troost', 'Kansas City', '24', '64110', '', '8168385549', '', '', '9', '', '1969/12/31', 'k203252038', '24', 'lilmarco68@gmail.com', 'Takis Chase', 'Girlfriend', '5169295746', '', '', '511-88-3690', '1', '1', '1', '2', '0', '0', '0'),
+(59, 0, 'Nathaniel', 'Kloiber', 'Nate', 'Kloiber, Nathaniel', '0', '1', '1001', '2013/09/05', '', '3855 SW 171 Terrace', 'Miramar', '8', '33027', '3056322036', '305632036', '2', '', '9.00', '12.00', '1981/01/05', 'K416636810050', '8', 'nrkloiber@hotmail.com', 'Lindsay Kloiber', 'Wife', '', '', '', '555555555', '1', '2', '1', '1', '0', '0', '0'),
+(60, 0, 'Labor', 'Labor', '', 'Labor, Labor', '0', '2', '1001', '2013/09/19', '', '', '', '-1', '', '', '', '', '', '9', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(61, 0, 'Zachary', 'Wood', 'Zach', 'Wood, Zachary', '0', '2', '1001', '2013/10/01', '', '15631 S. Lindenwood Dr', 'Olathe', '15', '66062', '3107857747', '', '', 'Has Driver/manager potiential.  ', '9', '', '1989/10/26', 'F2315573', '4', 'zachtwood@gmail.com', 'Melanie Matrod', 'Mother', '9132696988', '', '', '512028390', '1', '1', '0', '1', '0', '0', '0'),
+(74, 1, 'Rashid', 'Hannibal', '', 'Hannibal, Rashid', '0', '1', '1001', '2014/04/08', '', '126 N Saxony drive', 'Olathe', '15', '66061', '', '9135344737', '', '', '$12.00', '$12.00', '1980/06/16', 'K00-52-7421', '15', 'rashid.hannibal@yahoo.com', 'LaDean Edwards', 'Mother', '', '', '', '569-61-3739', '1', '1', '0', '0', '0', '0', '0'),
+(62, 1, 'Dean', 'Sanders', '', 'Sanders, Dean', '0', '1', '1001', '2013/10/23', '', '', '', '-1', '', '', '', '', '', '0', '0', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(63, 0, 'Cortez', 'McBarton', '', 'McBarton, Cortez', '0', '2', '1001', '2013/10/23', '1969/12/31', '', '', '-1', '', '', '', '', '', '10', '11', '1969/12/31', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(64, 0, 'DiMarcus', 'Alexander', '', 'Alexander, DiMarcus', '1', '2', '1001', '1969/12/31', '1969/12/31', '9031 E 52nd St', 'Kansas City', '24', '', '', '8168091808', '', '', '9', '', '1969/12/31', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(65, 0, 'Mickey', 'Evans', '', 'Evans, Mickey', '2', '2', '1001', '2013/12/06', '1969/12/31', '', '', '-1', '', '', '', '', '', '9', '', '1969/12/31', '', '-1', '', '', '', '', '', '', '', '1', '1', '', '', '', '', ''),
+(66, 1, 'Garin', 'Hansen', '', 'Hansen, Garin', '0', '2', '1001', '2013/12/13', '', '10900 Cottonwood St', 'Lenexa', '15', '66215', '9139630475', '', '', '', '9', '', '1969/12/31', 'k03-05-5557', '15', 'garinhansen@gmail.com', 'Kathy Penka', 'Mother', '913-580-9113', '', '', '514-11-7483', '1', '1', '0', '0', '0', '0', '0'),
+(67, 0, 'Joshua', 'Holler', 'Josh', 'Holler, Joshua', '0', '1', '1001', '2014/01/06', '', '', '', '-1', '', '', '', '', '', '10', '12', '1989/07/26', 'S5998009523', '24', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(68, 1, 'Joseph', 'Nugent', '', 'Nugent, Joseph', '0', '2', '1001', '2014/01/24', '', '4908 Ballentine St', 'Shawnee', '15', '66203', '9133221158', '', '', '', '9', '', '1992/07/15', 'k02741159', '15', '', 'Larry Armei', 'Grandfather', '', '', '', '497-06-7466', '1', '1', '1', '1', '0', '0', '0'),
+(69, 0, 'Nicholus', 'Murphy', 'Nick', 'Murphy, Nicholus', '0', '2', '1001', '2014/01/27', '', '916 Kiger', 'Independence', '24', '94050', '', '8169747645', '', '', '9', '', '1987/09/07', 'H213203007', '24', '', 'Courney Corbett', 'Fiance', '', '', '', '549-99-3027', '1', '1', '1', '2', '0', '0', '0'),
+(70, 1, 'Travis', 'Steffan', '', 'Steffan, Travis', '0', '0', '1001', '2014/03/29', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(71, 0, 'Patrick ', 'Puryear', '', 'Puryear, Patrick ', '0', '2', '1001', '2014/04/02', '', '406 S Lexington', 'Holden', '24', '64040', '', '6612479585', '', '', '9.00', '10.00', '1990/01/07', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(72, 0, '', '', '', ', ', '-1', '-1', '1001', '1969/12/31', '1969/12/31', '', '', '-1', '', '', '', '', '', '', '', '1969/12/31', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(73, 0, 'Corey', 'Blackwell', '', 'Blackwell, Corey', '0', '2', '1001', '2014/04/03', '1969/12/31', '1612 NE 78th street', 'Kansas City', '24', '64118', '', '3177174790', '', '', '10', '11', '1962/12/22', 'Y026174011', '24', 'teke180s@gmail.com', '', '', '', '', '', '104-62-2654', '1', '1', '0', '0', '0', '0', '0'),
+(75, 1, 'Jeremiah', 'Lee', '', 'Lee, Jeremiah', '0', '1', '1001', '2014/04/08', '', '1701 w Prairie', 'Olathe', '15', '66061', '9132547369', '9134612513', '6', '', '$12.00', '$12.00', '1983/10/18', 'K01-23-0079', '15', 'Jeremiahlee57@gmail.com', 'Marianna Palmisano', 'Mother', '', '', '', '509-04-3843', '1', '1', '0', '0', '0', '0', '0'),
+(76, 0, 'Rashid', 'Hannibal', '', 'Hannibal, Rashid', '0', '1', '1001', '2014/04/09', '', '126 N Saxony ', 'Olathe', '15', '66061', '', '9135344737', '', '', '12.00', '12.00', '1980/06/16', 'K00-52-7421', '15', 'rashid.hannibal@yahoo.com', 'LaDean Edwards', 'Mother', '', '', '', '569-61-3739', '1', '1', '0', '0', '0', '0', '0'),
+(77, 0, 'Jeremiah', 'Lee', '', 'Lee, Jeremiah', '0', '1', '1001', '2014/04/09', '', '1701 W Prairie', 'Olathe', '15', '66061', '9132547369', '9134612513', '', '', '12', '12', '1983/10/18', 'K01-23-0079', '15', 'jeremiahlee57@gmail.com', 'Marianna Palmisano', 'Mother', '', '', '', '509-04-3843', '1', '1', '0', '0', '0', '0', '0'),
+(79, 0, 'Kevin ', 'Rios', '', 'Rios, Kevin ', '0', '2', '1001', '2014/04/10', '', '10404 Antioch rd', 'Overland Park', '15', '66212', '', '9136710932', '', '', '9', '', '1992/10/10', 'K02-55-4896', '15', 'gunit4everr97@gmail.com', 'Ming', 'Mother', '', '', '', '509-08-8958', '1', '1', '0', '0', '0', '0', '0'),
+(80, 0, '', '', '', ', ', '-1', '-1', '1001', '', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(81, 1, 'Aryan', 'Long', '', 'Long, Aryan', '0', '2', '1001', '2014/04/14', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '-1', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(82, 1, 'Christopher', 'Carrera', '', 'Carrera, Christopher', '0', '2', '1001', '2014/04/23', '', '903 e oakview', 'Olathe', '15', '66061', '', '9135482088', '', '', '10.00', '', '2014/05/08', 'K01-08-4840', '15', 'carrera625@gmail.com', 'Jose Carrera', 'Father', '', '', '', '513-92-0919', '1', '1', '2', '3', '0', '0', '0');
+
+
+
+ALTER TABLE `employee` ADD `gps` VARCHAR(100) NOT NULL AFTER `voluntary_deductions`;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `employees`
+--
+ALTER TABLE `employees`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=83;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

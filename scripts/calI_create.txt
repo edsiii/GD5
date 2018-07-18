@@ -1,0 +1,7 @@
+
+
+
+
+INSERT INTO `calData1` (`id`, `taskId`, `start`, `end`, `isAllDay`, `title`, `startTimezone`, `endTimezone`, `description`, `recurrenceId`, `recurrenceRule`, `recurrenceException`, `ownerId`) VALUES (NULL, 'A000', '2017-10-18 06:30:13', '2017-10-21 10:15:07', '0', 'Demo entry', '', '', 'This is a test', '0', '', '', 'GD00KS');
+
+INSERT INTO `calData1` (`id`, `taskId`, `start`, `end`, `isAllDay`, `title`, `startTimezone`, `endTimezone`, `description`, `recurrenceId`, `recurrenceRule`, `recurrenceException`, `ownerId`) VALUES (NULL, 'A001', '2017-10-28 09:30:13', '2017-10-28 10:15:07', '0', 'Demo entry 2', '', '', 'This is a test', '0', '', '', 'GD00KS');

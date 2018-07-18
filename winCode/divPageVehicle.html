@@ -1,0 +1,516 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>iwd3 divPageVehicle</title>
+  <meta name="description" content="The iwd3">
+  <meta name="author" content="iwd3">
+
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.common-bootstrap.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.bootstrap.min.css" />
+
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+  
+  
+</head>
+<style>
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;
+ 
+}
+.nav-tabs {
+    padding-left: 1px;
+    margin-bottom: 0;
+    border: none;
+}
+.tab-content {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+</style>
+
+
+<body style="margin:0 auto; padding:0;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; padding: 0;">
+
+<div id="myDiv" class="container" style="width:100%;" align="left">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">List</a></li>
+    <li><a data-toggle="tab" href="#menu1">Details</a></li>
+    <li><a data-toggle="tab" href="#menu2">Help</a></li>
+    
+  </ul>
+
+  <div class="tab-content" style="width:100%;">
+    
+		
+    <div id="home" class="tab-pane fade in active">
+      <h3>Vehicles</h3>
+		<!-- <div id="mainGridDiv"></div> -->
+		<div class="k-widget k-grid" id="formGridDiv" style="width:100%;"></div>
+    </div>
+	
+	<div id="menu1" class="tab-pane fade" style="height: 250px;">
+	<br/>
+	<div style="overflow-y:scroll;height:90%;">
+      <table width="100%">
+
+		<!-- ROW 1 -->
+		<tr>
+			<td width="10%">
+				<label for="trucknumber_fld" class="col-form-label">Truck #</label>
+			</td>
+			<td width="25%">
+				<input type="text" class="form-control" id="trucknumber_fld" placeholder="truck number"  required>
+			</td>
+
+			<td width="5%"><input id="idx_fld" type="hidden" name="idx_fld" value="0"></td>
+			
+			<td width="10%">
+				<label for="truckname_fld" class="col-form-label">Vehicle Name</label>
+			</td>
+			<td width="25%">
+				<input type="text" class="form-control" id="truckname_fld" placeholder="truck name"  required>
+			</td>
+		</tr>
+
+		<!-- ROW 2 -->
+		<tr>
+			<td width="10%">
+				<label for="truckmodel_fld" class="col-form-label">Truck Model</label>
+			</td>
+			<td width="25%">
+				<input type="text" class="form-control" id="truckmodel_fld" placeholder="truck model"  required>
+			</td>
+
+			<td width="5%"></td>
+
+			<td width="10%">
+				<label for="lastMaintanceCheck_fld" class="col-form-label">Maintiance Update</label>
+			</td>
+			<td width="25%">
+				<input id="lastMaintanceCheck_fld" value="03/28/2018" title="Maintiance Update" style="width: 100%"  required/>
+			</td>
+
+
+		
+		</tr>
+
+		<!-- ROW 3 -->
+		<tr>
+			<td width="10%">
+				<label for="mileage_fld" class="col-form-label">Mileage</label>
+			</td>
+			<td width="25%">
+				<input type="number" class="form-control" id="mileage_fld" placeholder="Mileage" required>
+			</td>
+
+			<td width="5%"></td>
+			
+			<td width="10%">
+				<label for="vehicleStatus_fld" class="col-form-label">Vehicle Status</label>
+			</td>
+			<td width="25%">
+				<!-- <input type="text" class="form-control" id="vehicleStatus_fld" placeholder="status"> -->
+				<input id="vehicleStatus_fld" value="0" style="width: 100%;" required />
+			</td>
+		</tr>
+
+		<!-- ROW 4 -->
+		
+		<tr>		
+		
+			<td width="10%">
+				<label for="description_fld" class="col-form-label">Description</label>
+			</td>
+			<td colspan="4" >
+				<!-- <input type="text" class="form-control" id="description_fld" placeholder="Address"> -->
+				<textarea  id="description_fld" placeholder="description" class="form-control" rows="3" required></textarea>
+			</td>
+
+		</tr>
+		
+		<!--
+		<tr align="right">
+			<td colspan="5"><button type="button" class="btn btn-secondary">New</button> <button type="button" class="btn btn-secondary">Delete</button> <button type="button" class="btn btn-secondary" onclick="javascript:exit();">Cancel</button> <button type="button" class="btn btn-secondary">Save</button></td>
+		</tr>
+		-->
+		  
+		</table>
+		<br/><br/><br/><br/>
+	</div>	
+
+	
+		<!--
+		<div>
+			<button type="button" class="btn btn-secondary">New</button> <button type="button" class="btn btn-secondary">Delete</button> <button type="button" class="btn btn-secondary" onclick="javascript:myFormExit();">Cancel</button> <button type="button" class="btn btn-secondary">Save</button>
+			<span class="label label-default" id="lb_1a" style="display:hidden;">Default Label</span>
+			<span class="label label-primary" id="lb_2a" >Primary Label</span>
+			<span class="label label-success" id="lb_3a" style="display:hidden;">Success Label</span>
+			<span class="label label-info" id="lb_4a" style="display:hidden;">Info Label</span>
+			<span class="label label-warning" id="lb_5a" style="display:hidden;">Warning Label</span>
+			<span class="label label-danger" id="lb_6a" style="display:hidden;">Danger Label</span>
+		</div>
+		<br/>
+		-->
+		
+		<div id="footer">
+			<button id="f1_new_btn" disabled type="button" class="btn btn-secondary">New</button> <button id="f1_del_btn" disabled type="button" class="btn btn-secondary">Delete</button> <button id="f1_exit_btn" type="button" class="btn btn-secondary" onclick="javascript:myFormExit();">Cancel</button> <button id="f1_save_btn" disabled type="button" class="btn btn-secondary" onclick="javascript:myFormSave();">Save</button>
+			<span class="label label-default" id="lb_1a" style="display:hidden;">Default Label</span>
+			<span class="label label-primary" id="lb_2a" >Primary Label</span>
+			<span class="label label-success" id="lb_3a" style="display:hidden;">Success Label</span>
+			<span class="label label-info" 	  id="lb_4a" style="display:hidden;">Info Label</span>
+			<span class="label label-warning" id="lb_5a" style="display:hidden;">Warning Label</span>
+			<span class="label label-danger"  id="lb_6a" style="display:hidden;">Danger Label</span>
+		</div>
+		<br/>
+		<br/><br/><br/> 
+    </div>
+
+	
+    <div id="menu2" class="tab-pane fade">
+      <h3>Menu 2</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+	
+  </div>
+</div>
+<br/>
+
+
+
+<script>
+activeForm1 = "divPageVehicle";//Edit
+
+
+$("#lb_1a").hide();
+$("#lb_2a").hide();
+$("#lb_3a").hide();
+$("#lb_4a").hide();
+$("#lb_5a").hide();
+$("#lb_6a").hide();
+var msg = "Ready.";
+labelDisplayA(1,msg);
+
+ $("#vehicleStatus_fld").kendoDropDownList({
+	dataTextField: "text",
+	dataValueField: "value",
+	dataSource: vehicleStatCode,
+	index: 0,
+	change: on_vehicleStatus_fldChange
+});
+var today = kendo.date.today();
+ $("#lastMaintanceCheck_fld").kendoDateTimePicker({
+	value: today,
+	//change: startChange,
+	parseFormats: ["yyyy-MM-dd hh:mm:ss"]
+ });
+
+//document.getElementById("myDiv").style.border = "thin solid #000000";
+var formData=[];	
+
+// NEW CALL
+//Edit
+var form = new FormData();
+	form.append("franID", "GD00KS");
+	form.append("cid", "0532");
+	form.append("mode", "G");
+
+var u = "./scripts/vehicleAdmin.php";//Edit
+getF1Data(form,u);
+// new
+function getF1Data(form,u) {
+	/*
+	var form = new FormData();
+	form.append("mode", "G");
+	form.append("jobID", "1");
+	form.append("cid", "0532");
+	form.append("franID", "GD00KS");
+	//form.append("jobID", "1");
+	//form.append("desc1", "Two Story Single Family home..");
+	//form.append("desc2", "Two Story Single Family home..");
+	*/
+	formData=[];
+	var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": u,
+	  "method": "POST",
+	  "headers": {
+		"Cache-Control": "no-cache"
+	  },
+	  "processData": false,
+	  "contentType": false,
+	  "mimeType": "multipart/form-data",
+	  "data": form
+	}
+
+	$.ajax(settings).done(function (response) {
+		var data = new Object();;
+		var data =  $.parseJSON( response );
+		//alert(data[0].idx);		
+		//if (data[0].status != 'ERROR') {
+			for (var i=0;i<data.length;++i)
+			{
+				formData.push(data[i]);
+				//alert(formData[i].idx);
+				//formData.push({'idx':data[i].idx, 'startAddr1': data[i].startAddr1});
+			};
+			showF1GridData(formData);
+		//};
+		
+	}).fail(function (jqXHR, textStatus) {
+		alert(jqXHR+" "+textStatus);
+	});
+
+}
+// end new
+
+function showF1GridData(data) {	
+	//alert("Look "+ data[0].startAddr1);
+	var sharedDataSource = new kendo.data.DataSource({  
+		data: data
+	});
+	//Edit
+	var gridT = $("#formGridDiv").kendoGrid({
+		change: onChange_formGrid,
+		click: onChange_formGrid,
+		selectable: "row",
+		dataSource: sharedDataSource,
+		height: "205px", 
+		sortable: true,
+		columns: [
+			{
+				field: "idx",
+				title: "idx",
+				width: "30px",
+			},
+			{   field: "trucknumber",
+				title: "Truck Number",
+				width: "45px",
+				//hidden: true,
+			},			
+			{   field: "truckname",
+				title: "Truck Name",
+				width: "60px",
+				//hidden: true,
+			},			
+			{   field: "truckmodel",
+				title: "Truck Model",
+				width: "60px",
+				//hidden: true,
+			}
+			,
+			{   field: "description",
+				title: "Description",
+				width: "130px",
+				//hidden: true,
+			},
+			{   field: "mileage",
+				title: "mileage",
+				width: "70px",
+				//hidden: true,
+			},
+			{   field: "vehicleStatus",
+				title: "Vehicle Status",
+				width: "80px",
+				//hidden: true,
+			},
+			{   field: "lastMaintanceCheck",
+				title: "last Maintance Check",
+				width: "90px",
+				//hidden: true,
+			}
+			,			
+			{   field: "status",
+				title: "Status",
+				width: "40px",
+				//hidden: true,
+			}
+			
+		]
+	});
+
+	var msg = "ready...";
+	labelDisplayA(1,msg);
+	
+}
+
+function onChange_formGrid(arg) {
+	//alert("Look");
+	var grid = $("#formGridDiv").data("kendoGrid");        
+	var dataRows = grid.items();
+	var rowIndex = dataRows.index(grid.select());
+	var selectedItem = grid.dataItem(grid.select());
+	
+	//jobLocDetails(selectedItem.id);
+	//alert( rowIndex+"   "+formData[0].idx);
+	showF1FormData(rowIndex);
+	//cJobNo = selectedItem.idx;
+	
+	var selectedRows = this.select();
+    var selectedDataItems = [];
+    for (var i = 0; i < selectedRows.length; i++) {
+      var dataItem = this.dataItem(selectedRows[i]);
+      //selectedDataItems.push(dataItem);
+    }
+    // selectedDataItems contains all selected data items
+	
+}
+
+function showF1FormData(rowIndex) {
+//alert(rowIndex+" :: "+formData[rowIndex].trucknumber);
+
+//EDIT
+
+	<!-- form key idx -->
+	document.getElementById("idx_fld").value 			= formData[rowIndex].idx;
+	
+	<!-- row 1 column 1 and 2 -->
+	document.getElementById("trucknumber_fld").value 	= formData[rowIndex].trucknumber;
+
+	document.getElementById("truckname_fld").value 		= formData[rowIndex].truckname;
+	
+	<!-- row 2 column 1 and 2 -->
+	document.getElementById("truckmodel_fld").value 	= formData[rowIndex].truckmodel;
+	document.getElementById("lastMaintanceCheck_fld").value = formData[rowIndex].lastMaintanceCheck;
+	
+	<!-- row 3 column 1 and 2 -->
+	document.getElementById("mileage_fld").value = formData[rowIndex].mileage;
+	$("#vehicleStatus_fld").data('kendoDropDownList').value(formData[rowIndex].vehicleStatus);
+	<!-- row 4 column 1 and 2 -->	
+	document.getElementById("description_fld").value = formData[rowIndex].description;
+ 	
+	//alert(formData[rowIndex].vehicleStatus);
+
+	// activate detail tab buttons
+	$('#f1_new_btn').prop('disabled', false);
+	$('#f1_del_btn').prop('disabled', false);
+	$('#f1_save_btn').prop('disabled', false);
+ 
+}
+function myFormSave() {
+//EDIT
+var msg = "Saving...";
+labelDisplayA(5,msg);
+	var u = "./scripts/vehicleAdmin.php";//Edit
+	var idx = document.getElementById("idx_fld").value;
+	var a = document.getElementById("trucknumber_fld").value; 
+	var b = document.getElementById("truckmodel_fld").value;
+	var c = document.getElementById("description_fld").value;
+	var d = document.getElementById("mileage_fld").value;
+	var e = document.getElementById("vehicleStatus_fld").value;
+	var f = document.getElementById("lastMaintanceCheck_fld").value;
+	var g = document.getElementById("truckname_fld").value;
+	
+	//var dropdownlist = $("#vehicleStatus_fld").data("kendoDropDownList");
+	//$("#vehicleStatus_fld").data("kendoDropDownList").select(3);
+	//$("#vehicleStatus_fld").data('kendoDropDownList').value(3);
+	//dropdownlist.select(4);
+	//alert(f);
+	//EDIT
+	var form = new FormData();
+	form.append("franID", franID);
+	form.append("cid", cid);
+	form.append("mode", "U");
+	
+	form.append("idx", idx);	
+	form.append("trucknumber", a);
+	form.append("truckmodel",  b);
+	form.append("description", c);
+	form.append("mileage", 	   d);
+	form.append("status", 	   e);
+	form.append("lastMaintanceCheck", 	   f);
+	form.append("truckname",  g);
+	
+	getF1Data(form,u);
+
+}
+function myFormExit() {
+	activeForm1 = null;
+	//document.getElementById("x711").innerHTML = "<p>Thank You! OK!!</p>"
+	document.getElementById("Edit0").innerHTML = "<p>Thank You! OK!!</p>";
+
+	activeFormRecId = null;
+	document.getElementById("formName").innerHTML =  '';
+	$("#Edit0").load(winCodePath+"winCodeBlank.html");
+
+}
+	
+function popUp1() {
+var msg = "Welcome to my world";
+// 1-standard,2-primary,3-success,4-info,5-warning,6-danger
+labelDisplayA(6,msg);
+
+
+var c = "<p> welcome</p>";
+var t = "Welcome";
+// no default buttons
+	$("#popUpDialog_a").kendoDialog({
+		width: "300px",
+		height: "150px",
+			title: t,
+			closable: true,
+			modal: true,
+			content: c
+	});
+	
+	$("#popUpDialog_a").data("kendoDialog").open();
+	
+}
+function labelDisplayA(x,msg) {
+
+	$("#lb_1a").hide();
+	$("#lb_2a").hide();
+	$("#lb_3a").hide();
+	$("#lb_4a").hide();
+	$("#lb_5a").hide();
+	$("#lb_6a").hide();
+
+	switch(x) {
+		case 1:
+		$("#lb_1a").show();
+		$("#lb_1a").html(msg);
+		break;
+		case 2:
+		$("#lb_2a").show();
+		$("#lb_2a").html(msg);
+		break;
+		case 3:
+		$("#lb_3a").show();
+		$("#lb_3a").html(msg);
+		break;
+		case 4:
+		$("#lb_4a").show();
+		$("#lb_4a").html(msg);
+		break;
+		case 5:
+		$("#lb_5a").show();
+		$("#lb_5a").html(msg);
+		break;
+		case 6:
+		$("#lb_6a").show();
+		$("#lb_6a").html(msg);
+		break;
+	};
+}
+function on_vehicleStatus_fldChange() {
+// $("#vehicleStatus_fld").data('kendoDropDownList').value(3);					
+
+var t = $("#vehicleStatus_fld").val();
+//alert(t);
+//dropdownlist.value($("#vehicleStatus_fld").val());
+//);
+}
+</script> 
+</body>
+</html>

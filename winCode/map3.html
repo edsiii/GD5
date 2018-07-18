@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map">.........</div>
+    <script>
+	var map;
+	var markers = [];
+	var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	var labelIndex = 0;
+	function myFoFo(){
+		alert("myFOFO");
+	}
+      function initMap() {
+          //alert("go " + this);
+        var uluru = {lat: 39.114053, lng: -94.6274636};
+		  //var uluru2 = {lat: 38.9822282, lng:  -94.6707917};
+			map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          //center: uluru
+          center: {lat: 39.114053, lng: -94.6274636}
+        });
+        addMarker(uluru, map);
+		//map1Menu();
+		//google.maps.event.trigger(map, 'resize');
+		//var center = new google.maps.LatLng(39.11,-94.62);
+		map.setCenter({	lat:39.11,lng:-94.62});
+        //map.panTo(center);
+		GetLocation("Kansas City MS"); //init gps location "8686 Golson ave Cincinnati oh 45229 usa");
+		
+		/*
+		var myOptions = {
+			zoom: 14,
+			center: new google.maps.LatLng(0.0, 0.0),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		map2 = new google.maps.Map(document.getElementById("map_canvas2"), myOptions);
+		*/
+    }
+	  
+	  function dodo() {
+      //alert("ok");
+      /*
+      var marker = new google.maps.Marker({
+        position: {lat: 38.9822282, lng: -94.6707917},
+        label: 'xxxx',
+        map: map
+      });  
+      */
+      addMarker({lat: 38.9924282, lng: -94.6908917}, map);   
+    }
+    function dodo2() {
+      //alert("ok");
+	  var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+            'sandstone rock formation in the southern part of the '+
+            'Heritage Site.</p>'+
+            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            '(last visited June 22, 2009).</p>'+
+            '</div>'+
+            '</div>';
+      var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+      var marker = new google.maps.Marker({
+        position: {lat: 38.9822282, lng:  -94.6707917},
+        label: 'xxxx',
+        map: map
+      }); 
+      marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+
+      //addMarker({lat: 38.9822282, lng:  -94.6707917}, map);
+	  addMarker(marker);
+    }
+
+	
+function addMk1(pos,lab,cont) {
+      //alert("ok");
+	  var contentString = cont;
+      var infowindow = new google.maps.InfoWindow({
+          content: contentString
+      });
+      var marker = new google.maps.Marker({
+        position: pos,
+        label: lab,
+        map: map
+		
+      }); 
+      marker.addListener('click', function() {
+          infowindow.open(map, marker);
+      });
+
+	  addMarker(marker);
+}
+
+
+    // Adds a marker to the map.
+function addMarker(location, map) {
+  // Add the marker at the clicked location, and add the next-available label
+  // from the array of alphabetical characters.
+  var marker = new google.maps.Marker({
+    position: location,
+    label: labels[labelIndex++ % labels.length],
+    map: map
+  });
+}
+
+function mkMarkers() {
+	var pos = {lat: 38.9822282, lng:  -94.6707917};
+	var lab = "Overland Park";
+	var cont = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Overland Park</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Overland Park</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+            'sandstone rock formation in the southern part of the Heritage Site.</p>'+
+            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a></p>'+
+            '</div></div>';
+
+	addMk1(pos,lab,cont);	
+}
+
+	
+function addMarkerWithTimeout(position, timeout,i) {
+//alert("X "+position.pos);
+
+var contentString = position.info;
+var infowindow = new google.maps.InfoWindow({
+          content: contentString
+      });
+
+// add label, content
+        window.setTimeout(function() {
+          markers.push(new google.maps.Marker({
+            position: position.pos,
+            map: map,
+			label: position.label,
+            animation: google.maps.Animation.DROP
+          }));
+
+		markers[i].addListener('click', function() {
+          infowindow.open(map, markers[i]);
+        });
+
+        }, timeout);
+
+
+}
+function clearMarkers() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+        markers = [];
+      }
+function mkMarkersGroup() {
+// drop
+
+ clearMarkers();
+ var neighborhoods_org = [
+        {lat: 52.511, lng: 13.447},
+        {lat: 52.549, lng: 13.422},
+        {lat: 52.497, lng: 13.396},
+        {lat: 52.517, lng: 13.394}
+      ];
+
+ var neighborhoods = [
+        {pos:{lat: 52.511, lng: 13.447},label:'xxsed1',info:'sdfsdfsdfsdfsd1'},
+        {pos:{lat: 52.549, lng: 13.422},label:'xxsed2',info:'sdfsdfsdfsdfsd2'},
+        {pos:{lat: 52.497, lng: 13.396},label:'xxsed3',info:'sdfsdfsdfsdfsd3'},
+        {pos:{lat: 52.517, lng: 13.394},label:'xxsed4',info:'sdfsdfsdfsdfsd4'}
+      ];
+
+     for (var i = 0; i < neighborhoods.length; i++) {
+          addMarkerWithTimeout(neighborhoods[i], i * 200,i);
+     }
+
+}
+
+    </script>
+	
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8tqvUEVXeSu5KWPuZTNtIavLFdwgBJcs&callback=initMap">
+</script>
+  </body>
+</html>

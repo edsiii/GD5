@@ -1,0 +1,40 @@
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE IF NOT EXISTS users (
+    idx int NOT NULL AUTO_INCREMENT,
+    userID varchar(20) NOT NULL,
+    FirstName varchar(25) NOT NULL,
+    LastName varchar(25) NOT NULL,
+
+    franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    uid int DEFAULT 0,
+    edate DATETIME ,
+    lupdte DATETIME ,
+    flg1 varchar(1) DEFAULT 'A',
+    PRIMARY KEY (idx) 
+) comment='users access table';
+
+-- xGiXU18zXz6jTgM4
+
+DROP TRIGGER if exists users_INSERT;
+CREATE TRIGGER users_INSERT BEFORE INSERT ON users
+FOR EACH ROW 
+
+    SET new.edate = now(),
+        new.lupdte = now();
+
+DROP TRIGGER if exists users_UPDATE;
+CREATE TRIGGER users_UPDATE BEFORE UPDATE ON users
+FOR EACH ROW 
+    Set new.lupdte = now();
+
+
+	
+	
+	
+INSERT INTO `users` (`idx`, `userID`, `FirstName`, `LastName`, `franID`, `delflg`, `uid`, `edate`, `lupdte`, `flg1`) VALUES (NULL, 'EDS0532', 'Dean', 'Sanders', 'GD00KS', '0', '0', NULL, NULL, 'A');
+
+CREATE USER 'appUser'@'localhost' IDENTIFIED VIA mysql_native_password USING '***';GRANT SELECT, INSERT, UPDATE, DELETE, FILE ON *.* TO 'appUser'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL PRIVILEGES ON `test`.* TO 'appUser'@'localhost';
+
+

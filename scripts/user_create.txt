@@ -1,0 +1,40 @@
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE IF NOT EXISTS users (
+    idx int NOT NULL AUTO_INCREMENT,
+    userID varchar(20) UNIQUE,
+	
+	
+    FirstName varchar(25) NOT NULL,
+    LastName varchar(25) NOT NULL,
+	loginName varchar(20),
+	pwd varchar(20),
+	accessLevel int DEFAULT 0,
+	active int DEFAULT 0,
+
+    franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    uid int DEFAULT 0,
+    edate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    lupdte DATETIME DEFAULT CURRENT_TIMESTAMP,
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='users access table';
+
+
+
+
+CREATE TRIGGER users_INSERT BEFORE INSERT ON users
+	FOR EACH ROW
+    	SET new.edate = now(),
+        new.lupdte = now();
+
+
+
+CREATE TRIGGER users_UPDATE BEFORE UPDATE ON users
+FOR EACH ROW 
+    Set new.lupdte = now();
+
+INSERT INTO `users` (`idx`, `userID`, `FirstName`, `LastName`, `loginName`, `pwd`, `accessLevel`, `active`, `franID`, `delflg`, `uid`, `edate`, `lupdte`, `flg1`) VALUES (NULL, 'AQSS', 'Dean', 'Sanders', 'joel', 'none', '0', '0', 'AZSX', '0', '0', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'A');
+
+INSERT INTO `users` (`idx`, `userID`, `FirstName`, `LastName`, `loginName`, `pwd`, `accessLevel`, `active`, `franID`, `delflg`, `uid`, `edate`, `lupdte`, `flg1`) VALUES (NULL, 'sdfgsdf', 'Edgar', 'Sanders', 'sdfgdf', 'dfgdfd', '1', '0', 'erertertre', '0', '0', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'A');

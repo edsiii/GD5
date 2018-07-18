@@ -1,0 +1,65 @@
+DROP TABLE IF EXISTS jobP2;
+CREATE TABLE IF NOT EXISTS `jobp2` (
+  `idx` int(11) NOT NULL AUTO_INCREMENT,
+  `jobID` int(11) NOT NULL,
+  `orderSeq` int(11) NOT NULL,
+  `clientID` varchar(20) DEFAULT NULL,
+  `startAddr1` varchar(50) DEFAULT NULL,
+  `startCity` varchar(50) DEFAULT NULL,
+  `startState` varchar(2) DEFAULT NULL,
+  `startZip` varchar(10) DEFAULT NULL,
+  `gpsLat` varchar(20) DEFAULT NULL,
+  `gpsLon` varchar(20) DEFAULT NULL,
+  `arivalTime` datetime DEFAULT NULL,
+  `departureTime` datetime DEFAULT NULL,
+  
+  `routeDesc` varchar(400) DEFAULT NULL,
+  `routeDistance` int(11) DEFAULT NULL,
+  `directionsTxt` varchar(1000) DEFAULT NULL,  
+  `routeStatus` varchar(10) DEFAULT NULL,
+  
+  `vehicleIds` varchar(100) DEFAULT NULL,
+  
+  `franID` varchar(10) NOT NULL,
+  `delflg` int(11) DEFAULT '0',
+  `eDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lupdte` datetime DEFAULT NULL,
+  `flg1` varchar(1) DEFAULT 'A',
+  PRIMARY KEY (`idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='jobP2 route table';
+
+INSERT INTO `jobp2` (`idx`, `jobID`, `orderSeq`, `clientID`, `startAddr1`, `startCity`, `startState`, `startZip`, `gpsLat`, `gpsLon`, `arivalTime`, `departureTime`, `routeDesc`, `routeDistance`, `directionsTxt`, `routeStatus`, `vehicleIds`, `franID`, `delflg`, `eDate`, `lupdte`, `flg1`) VALUES (null, '32', '1', 'EDS01', '5613 Reading Road', 'Star City', 'KS', '12343', '34.435677', '-94.653322', '2017-11-13 11:23:00', '2017-11-13 12:00:00', 'Demo', '23.1', 'sd sdf sd sdfs dfsdfs', 'Completed', 'Awss|Hydee', 'GD00KS', '0', CURRENT_TIMESTAMP, NULL, 'A');
+
+--
+-- Triggers `jobp2`
+--
+DELIMITER $$
+CREATE TRIGGER `jobP2_after_insert` AFTER INSERT ON `jobp2` FOR EACH ROW INSERT INTO jobP3
+   ( jobID,
+     clientID, franID)
+   VALUES
+   ( NEW.idx,
+     NEW.clientID, NEW.franID )
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `jobp2_OnInsert` BEFORE INSERT ON `jobp2` FOR EACH ROW SET NEW.lupdte = NOW()
+$$
+DELIMITER ;
+
+
+DROP TABLE IF EXISTS `locationType`;
+CREATE TABLE `locationtype` (
+`idx` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(100) NOT NULL,
+  `desc2` varchar(1000) NOT NULL,
+  `franID` varchar(10) NOT NULL,
+  `delflg` int(11) DEFAULT '0',
+  `eDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lupdte` datetime DEFAULT NULL,
+  `flg1` varchar(1) DEFAULT 'A',
+  PRIMARY KEY (`idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `locationtype` (`idx`, `description`, `desc2`, `franID`, `delflg`, `eDate`, `lupdte`, `flg1`) VALUES (NULL, 'One Story Singlr Family home', 'One Story Singlr Family home', 'GD00KS', '0', CURRENT_TIMESTAMP, NULL, 'A');
+INSERT INTO `locationtype` (`idx`, `description`, `desc2`, `franID`, `delflg`, `eDate`, `lupdte`, `flg1`) VALUES (NULL, 'Two Story Singlr Family home', 'Two Story Singlr Family home', 'GD00KS', '0', CURRENT_TIMESTAMP, NULL, 'A');

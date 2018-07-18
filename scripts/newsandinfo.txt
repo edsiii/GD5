@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS newsandinfo;
+
+CREATE TABLE IF NOT EXISTS newsandinfo (
+    idx int NOT NULL AUTO_INCREMENT,
+    topic varchar(500) NOT NULL,
+    message varchar(2000) NOT NULL,
+    ufrom varchar(20) NOT NULL,
+    tou varchar(20) NOT NULL,
+    exspire date NOT NULL,
+    franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    edate DATETIME CURRENT_TIMESTAMP DEFAULT ,NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
+    flg1 varchar(1) DEFAULT 'A',
+	PRIMARY KEY (idx)
+) comment='users access table';
+
+INSERT INTO `newsandinfo` (`idx`, `topic`, `message`, `ufrom`, `tou`, `exspire`, `franID`, `delflg`, `edate`, `flg1`) VALUES (NULL, 'Demo', 'gdfghdf dfg dfg dfgdfgh dfgh', 'EDean', 'ALL', '2017-10-31', 'GD00KS', '0', CURRENT_TIMESTAMP, 'A');

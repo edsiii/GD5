@@ -1,0 +1,37 @@
+DROP TABLE IF EXISTS employee;
+
+CREATE TABLE IF NOT EXISTS employee (
+    idx int NOT NULL AUTO_INCREMENT,
+    userID varchar(20) NOT NULL,
+    FirstName varchar(25) NOT NULL,
+    LastName varchar(25) NOT NULL,
+	email varchar(100),
+	phone1 varchar(15),
+
+    
+    franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    edate DATETIME ,
+    lupdte DATETIME ,
+    flg1 varchar(1) DEFAULT 'A',
+    PRIMARY KEY (idx) 
+) comment='employee table';
+
+DROP TRIGGER if exists user_after_insert;
+CREATE TRIGGER user_after_insert AFTER INSERT
+   ON users FOR EACH ROW
+		
+        INSERT INTO userDetal
+   ( userID,
+     franID)
+   VALUES
+   ( NEW.userID,
+     NEW.franID );
+     if ( NEW.delflg = 1 ) THEN 
+		   INSERT INTO employee 
+		   ( userID,
+			 franID,
+           	FirstName,
+            LastName
+           ) VALUES ( NEW.userID, NEW.franID, NEW.FirstName, NEW.LastName);
+		END IF;

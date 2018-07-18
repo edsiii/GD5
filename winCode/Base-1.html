@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example of Bootstrap 3 Dropdowns within a Navbar</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- EDS Telerik -->
+    <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+	<link rel="stylesheet" href="styles/kendo.mobile.all.min.css"/>
+	<link rel="stylesheet" href="styles/kendo.rtl.min.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+	<script src="js/jszip.min.js"></script>
+	<script src="content/shared/js/console.js"></script>
+		
+	
+<!-- END -->
+<!-- 
+	http://getbootstrap.com/components/#breadcrumbs 
+	https://stackoverflow.com/questions/11742839/showing-a-google-map-in-a-modal-created-with-twitter-bootstrap
+	https://v4-alpha.getbootstrap.com/components/modal/
+	http://docs.telerik.com/kendo-ui/api/javascript/ui/alert
+-->
+
+<style type="text/css">
+	.bs-example{
+    	margin: 10px;
+    }
+	
+
+</style>
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 0px;
+        font-size: 12px;
+        min-height: 30px;
+        background: #dbdfe5;
+        margin-bottom: 5px;
+		
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+	.demo-contentX{
+        background: #abb1b8;
+		margin-bottom: 2px;
+		padding: 0px;
+		min-height: 30px;
+		max-height: 90px;
+    }
+	.demo-contentZ{
+        background: #abb1b8;
+		margin-bottom: 2px;
+		padding: 0px;
+		min-height: 30px;
+		height: 65px;
+    }
+	.demo-contentS{
+        background: #dbdfe5;
+		margin-bottom: 1px;
+		padding: 0px;
+		min-height: 30px;
+		max-width: 100%;
+    }
+	.demo-contentE{
+        background: #dbdfe5;
+		margin-bottom: 1px;
+		padding: 0px;
+		min-height: 30px;
+		min-width: 100px;
+    }
+	.demo-contentF{
+        background: #dbdfe5;
+		margin-bottom: 1px;
+		padding: 0px;
+		min-height: 30px;
+		min-width: 50px;
+
+    }
+</style>
+
+</head>
+<body>
+<div class="bs-example">
+    <nav id="myNavbar" class="navbar navbar-default" role="navigation" >
+        <!-- Brand and toggle get grouped for better mobile display -->
+		<!-- 
+			http://getbootstrap.com/components/#breadcrumbs 
+			https://stackoverflow.com/questions/11742839/showing-a-google-map-in-a-modal-created-with-twitter-bootstrap
+			https://v4-alpha.getbootstrap.com/components/modal/
+			
+		-->
+        <div class="container">		
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">TITLE</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Home</a></li>
+					<li><a href="#">Applications</a></li>
+                    <li><a href="javascript:openWin1();">Profile</a></li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Messages <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Inbox</a></li>
+                            <li><a href="#">Drafts</a></li>
+                            <li><a href="#">Sent Items</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Trash</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Settings</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+	
+	<div id="window">.......................</div>
+	<div class="responsive-message"></div>
+	<div id="dialog">...............</div>
+	
+	<div class="container">
+	
+		<div class="row">
+			<div class="col-md-10 col-sm-10 col-xs-9">
+				<div class="demo-contentF">.col-md-2v</div>
+			</div>
+			<div class="col-md-2 col-sm-2 col-xs-3">
+				<div class="demo-contentE">Messages <span class="badge">4</span></div>
+			</div>
+		</div>
+		<br/>
+		
+		<div class="row">
+			<div class="col-md-2 col-sm-2 col-xs-3">
+				<div class="demo-contentE">.col-md-2q</div>
+			</div>
+			<div class="col-md-10 col-sm-10 col-xs-9">
+				<div class="demo-contentF">.col-md-2v</div>
+			</div>			
+		</div>
+		<br/>
+		
+		<div class="row">
+			<div class="col-md-2 col-sm-2 col-xs-3">
+				<div class="demo-contentE">.col-md-2q</div>
+			</div>
+			<div class="col-md-8 col-sm-8 col-xs-6">
+				<div class="demo-contentF">
+					  <div class="panel panel-default">
+						<div class="panel-heading">Panel Heading</div>
+						<div class="panel-body">Panel Content</div>
+						<div class="panel-footer">Panel Footer</div>
+					  </div>
+				</div>
+			</div>
+			<div class="col-md-2 col-sm-2 col-xs-3">
+				<div class="demo-contentE">.col-md-2q</div>
+			</div>			
+		</div>
+		<br/>
+		
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="demo-content">.col-md-3 .col-sm-6</div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+            	<div class="demo-content bg-alt">.col-md-3 .col-sm-6</div>
+            </div>
+            <div class="clearfix visible-sm-block"></div>
+            <div class="col-md-3 col-sm-6">
+            	<div class="demo-content">.col-md-3 .col-sm-6</div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+            	<div class="demo-content bg-alt">.col-md-3 .col-sm-6</div>
+            </div>
+        </div>
+
+		<div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="demo-content">.col-md-3 .col-sm-6 2</div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+            	<div class="demo-content bg-alt">.col-md-3 .col-sm-6 2</div>
+            </div>
+            <div class="clearfix visible-sm-block"></div>
+            <div class="col-md-3 col-sm-6">
+            	<div class="demo-content">.col-md-3 .col-sm-6 2</div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+            	<div class="demo-content bg-alt">.col-md-3 .col-sm-6 2</div>
+            </div>
+        </div>
+			
+		<div class="row">
+            <div class="col-md-2">
+                <div class="demo-contentX">.col-md-2</div>
+            </div>
+            <div class="col-md-2">
+                <div class="demo-contentZ">.col-md-2</div>
+            </div>
+            <div class="col-md-2">
+                <div class="demo-contentX">.col-md-2</div>
+            </div>
+            <div class="col-md-2">
+                <div class="demo-contentX">.col-md-2</div>
+            </div>
+			<div class="col-md-2">
+                <div class="demo-contentX">.col-md-2</div>
+            </div>
+            <div class="col-md-2">
+                <div class="demo-contentX">.col-md-2</div>
+            </div>
+        </div>
+		<br/>
+		<div class="row">
+            <div class="col-md-2">
+                <div class="demo-contentX">.col-md-2</div>
+            </div>
+            <div class="col-md-2">
+                <div class="demo-contentX">.col-md-2</div>
+            </div>
+            <div class="col-md-2">
+                <div class="demo-contentX">.col-md-2</div>
+            </div>
+            <div class="col-md-4">                
+				
+					<div class="row">
+						<div class="col-md-6">
+							<div class="demo-contentS">.col-md-2x</div>
+						</div>
+						<div class="col-md-6">
+							<div class="demo-contentS">.col-md-2x</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="demo-contentS">.col-md-2v</div>
+						</div>
+						<div class="col-md-6">
+							<div class="demo-contentS">.col-md-2q</div>
+						</div>
+					</div>				
+				
+            </div>
+
+            <div class="col-md-2">
+                <div class="demo-contentX">.col-md-2ss</div>
+            </div>
+        </div>
+		
+		<br/>
+		<div class="row">
+			<div class="col-md-10 col-sm-10 col-xs-9">
+				<div class="demo-contentF">.col-md-2v</div>
+			</div>
+			<div class="col-md-2 col-sm-2 col-xs-3">
+				<div class="demo-contentE">.col-md-2q</div>
+			</div>
+		</div>
+		
+		<br/>
+		<div class="row">
+		  <div class="span9">
+			Level 1 column
+			<div class="row-fluid">
+			  <div class="span6">Level 2</div>
+			  <div class="span3">Level 2</div>
+			</div>
+		  </div>
+		</div>
+		
+	</div>
+
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Modal Header</h4>
+		  </div>
+		  <div class="modal-body">
+			<p>Some text in the modal.</p>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<!-- END Modal -->
+	
+	
+			
+</div> <!-- END all -->
+<script src="myJs/winTelerik.js"></script>
+<script src="myJs/dialogTelerik.js"></script>
+<!-- 
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	
+	 -->
+
+<script>
+var myWindow = $("#window");
+var myDialog = $("#dialog");
+
+$(document).ready(function () {								
+	//alert("Ready");
+	baseWin1();
+	myDialog1();
+});
+
+function initialize() {
+	//alert("initialize()");
+	//$('#myModal').modal('show');
+}
+
+myDialog
+
+
+</script>
+
+</body>
+</html>                                		

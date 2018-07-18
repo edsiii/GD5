@@ -1,0 +1,404 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>iwd3</title>
+  <meta name="description" content="The iwd3">
+  <meta name="author" content="iwd3">
+
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+  
+  
+</head>
+<style>
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;
+ 
+}
+.nav-tabs {
+    padding-left: 1px;
+    margin-bottom: 0;
+    border: none;
+}
+.tab-content {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+</style>
+<body style="margin:0 auto; padding:0;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; padding: 0;">
+
+<div id="myDiv" class="container" style="width:100%; " align="left">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">List</a></li>
+    <li><a data-toggle="tab" href="#menu1">Details</a></li>
+    <li><a data-toggle="tab" href="#menu2">Help</a></li>
+    
+  </ul>
+
+  <div class="tab-content" style="width:100%;">
+    
+		
+    <div id="home" class="tab-pane fade in active">
+      <h3>Customers</h3>
+		<!-- <div id="mainGridDiv"></div> -->
+		<div class="k-widget k-grid" id="formGridDiv" style="width:100%;overflow-x:scroll;"></div>
+    </div>
+	
+	<div id="menu1" class="tab-pane fade">
+	<br/>
+      <table width="100%">
+
+		<tr>
+			<td width="10%">
+		  <label for="desc1" class="col-form-label">Description</label>
+				</td>
+			<td width="25%">
+			<input type="text" class="form-control" id="desc1" placeholder="descriptions">
+				</td>
+
+		  <td width="5%"></td>
+			<td width="10%">
+		  <label for="inputPassword2" class="col-form-label">xxxxx</label>
+				</td>
+			<td width="25%">
+			<input type="text" class="form-control" id="input2" placeholder="xxxxx">
+				</td>
+		</tr>
+
+		<tr>
+			<td width="10%">
+		  <label for="input3" class="col-form-label">Name</label>
+				</td>
+			<td width="25%">
+			<input type="text" class="form-control" id="inputText" placeholder="Name">
+				</td>
+
+		  <td width="5%"></td>
+			<td width="10%">
+		  <label for="inputPassword4" class="col-form-label">Address</label>
+				</td>
+			<td width="25%">
+			<input type="password4" class="form-control" id="inputPassword" placeholder="Address">
+				</td>
+		</tr>
+
+
+
+		<tr>
+		  <td> &nbsp; </td>
+		  <td> &nbsp; </td>
+		  <td> &nbsp; </td>
+		  <td> &nbsp; </td>
+		  <td> &nbsp; </td>
+		</tr>
+		<!--
+		<tr align="right">
+			<td colspan="5"><button type="button" class="btn btn-secondary">New</button> <button type="button" class="btn btn-secondary">Delete</button> <button type="button" class="btn btn-secondary" onclick="javascript:exit();">Cancel</button> <button type="button" class="btn btn-secondary">Save</button></td>
+		</tr>
+		-->
+		  
+		</table>
+		<!--
+		<div>
+			<button type="button" class="btn btn-secondary">New</button> <button type="button" class="btn btn-secondary">Delete</button> <button type="button" class="btn btn-secondary" onclick="javascript:myFormExit();">Cancel</button> <button type="button" class="btn btn-secondary">Save</button>
+			<span class="label label-default" id="lb_1a" style="display:hidden;">Default Label</span>
+			<span class="label label-primary" id="lb_2a" >Primary Label</span>
+			<span class="label label-success" id="lb_3a" style="display:hidden;">Success Label</span>
+			<span class="label label-info" id="lb_4a" style="display:hidden;">Info Label</span>
+			<span class="label label-warning" id="lb_5a" style="display:hidden;">Warning Label</span>
+			<span class="label label-danger" id="lb_6a" style="display:hidden;">Danger Label</span>
+		</div>
+		<br/>
+		-->
+		
+		<div id="footer">
+			<button id="f1_new_btn" disabled type="button" class="btn btn-secondary">New</button> <button id="f1_del_btn" disabled type="button" class="btn btn-secondary">Delete</button> <button id="f1_exit_btn" type="button" class="btn btn-secondary" onclick="javascript:myFormExit();">Cancel</button> <button id="f1_save_btn" disabled type="button" class="btn btn-secondary" onclick="javascript:myFormSave();">Save</button>
+			<span class="label label-default" id="lb_1a" style="display:hidden;">Default Label</span>
+			<span class="label label-primary" id="lb_2a" >Primary Label</span>
+			<span class="label label-success" id="lb_3a" style="display:hidden;">Success Label</span>
+			<span class="label label-info" 	  id="lb_4a" style="display:hidden;">Info Label</span>
+			<span class="label label-warning" id="lb_5a" style="display:hidden;">Warning Label</span>
+			<span class="label label-danger"  id="lb_6a" style="display:hidden;">Danger Label</span>
+		</div>
+		<br/>
+		<br/><br/><br/><br/><br/><br/> 
+    </div>
+
+	
+    <div id="menu2" class="tab-pane fade">
+      <h3>Menu 2</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+	
+  </div>
+</div>
+<br/>
+
+
+
+<script>
+activeForm1 = "EDS1";//Edit
+
+$("#lb_1a").hide();
+$("#lb_2a").hide();
+$("#lb_3a").hide();
+$("#lb_4a").hide();
+$("#lb_5a").hide();
+$("#lb_6a").hide();
+var msg = "Ready.";
+labelDisplayA(1,msg);
+
+//document.getElementById("myDiv").style.border = "thin solid #000000";
+var formData=[];	
+
+// NEW CALL
+//Edit
+var form = new FormData();
+	form.append("mode", "G");
+	form.append("jobID", "1");
+	form.append("cid", "0532");
+	form.append("franID", "GD00KS");
+var u = "./scripts/customerListAdmin.php";//Edit
+getF1Data(form,u);
+// new
+function getF1Data(form,u) {
+	/*
+	var form = new FormData();
+	form.append("mode", "G");
+	form.append("jobID", "1");
+	form.append("cid", "0532");
+	form.append("franID", "GD00KS");
+	//form.append("jobID", "1");
+	//form.append("desc1", "Two Story Single Family home..");
+	//form.append("desc2", "Two Story Single Family home..");
+	*/
+	
+	var settings = {
+	  "async": true,
+	  "crossDomain": true,
+	  "url": u,
+	  "method": "POST",
+	  "headers": {
+		"Cache-Control": "no-cache"
+	  },
+	  "processData": false,
+	  "contentType": false,
+	  "mimeType": "multipart/form-data",
+	  "data": form
+	}
+
+	$.ajax(settings).done(function (response) {
+		var data = new Object();;
+		var data =  $.parseJSON( response );
+		//alert(data[0].idx);		
+		//if (data[0].status != 'ERROR') {
+			for (var i=0;i<data.length;++i)
+			{
+				formData.push(data[i]);
+				//formData.push({'idx':data[i].idx, 'startAddr1': data[i].startAddr1});
+			};
+			showF1GridData(formData);
+		//};
+		
+	}).fail(function (jqXHR, textStatus) {
+		alert(jqXHR+" "+textStatus);
+	});
+
+}
+// end new
+
+function showF1GridData(data) {	
+	//alert("Look "+ data[0].startAddr1);
+	var sharedDataSource = new kendo.data.DataSource({  
+		data: data
+	});
+	//Edit
+	var gridT = $("#formGridDiv").kendoGrid({
+		change: onChange_formGrid,
+		click: onChange_formGrid,
+		selectable: "row",
+		dataSource: sharedDataSource,
+		height: "205px", 
+		sortable: true,
+		columns: [
+			{
+				field: "idx",
+				title: "#",
+				width: "10px",
+			},
+			{   field: "business_name",
+				title: "business_name",
+				width: "45px",
+				//hidden: true,
+			},			
+			{   field: "contact1_firstname",
+				title: "contact1_firstname",
+				width: "45px",
+				//hidden: true,
+			},
+			{   field: "contact1_lastname",
+				title: "contact1_lastname",
+				width: "45px",
+				//hidden: true,
+			},
+			{   field: "contact2_firstname",
+				title: "contact2_firstname",
+				width: "45px",
+				//hidden: true,
+			},
+			{   field: "contact2_lastname",
+				title: "contact2_lastname",
+				width: "45px",
+				//hidden: true,
+			},
+						
+			{   field: "status",
+				title: "Status",
+				width: "60px",
+				//hidden: true,
+			}
+			
+		]
+	});
+
+	var msg = "ready...";
+	labelDisplayA(1,msg);
+	
+}
+
+function onChange_formGrid(arg) {
+	//alert("Look");
+	var grid = $("#formGridDiv").data("kendoGrid");        
+	var dataRows = grid.items();
+	var rowIndex = dataRows.index(grid.select());
+	var selectedItem = grid.dataItem(grid.select());
+	
+	//jobLocDetails(selectedItem.id);
+	//alert( rowIndex+" "+selectedItem.idx +"  "+ formData[rowIndex].startAddr1);
+	showF1FormData(rowIndex);
+	//cJobNo = selectedItem.idx;
+	
+	var selectedRows = this.select();
+    var selectedDataItems = [];
+    for (var i = 0; i < selectedRows.length; i++) {
+      var dataItem = this.dataItem(selectedRows[i]);
+      //selectedDataItems.push(dataItem);
+    }
+    // selectedDataItems contains all selected data items
+	
+}
+
+function showF1FormData(rowIndex) {
+//EDIT
+	document.getElementById("desc1").value = formData[rowIndex].startAddr1;
+	document.getElementById("input2").value = cJobNo;
+	document.getElementById("inputText").value = rowIndex;
+	// activate detail tab buttons
+	$('#f1_new_btn').prop('disabled', false);
+	$('#f1_del_btn').prop('disabled', false);
+	$('#f1_save_btn').prop('disabled', false);
+ 
+}
+function myFormSave() {
+//EDIT
+var msg = "Saving...";
+labelDisplayA(5,msg);
+	var x = document.getElementById("desc1").value; // = 'One Story Singlr Family home';
+	var idx = document.getElementById("inputText").value;
+	
+	//var outData = {'franID': 'GD00KS', 'cid': '0532', 'mode': 'U', 'idx': 1, 'delflg':5, 'desc1': x, 'desc2': 'One Story Single Family home'  };  
+	//var outData = {'franID': 'GD00KS', 'cid': '0532', 'mode': 'U', 'idx': idx, 'startZip':'45011'};  
+
+	//EDIT
+	var form = new FormData();
+	form.append("mode", "U");
+	form.append("idx", idx);
+	form.append("cid", "0532");
+	form.append("franID", "GD00KS");
+	form.append("startZip", "45011");
+	
+	getF1Data(form);
+
+}
+function myFormExit() {
+	activeForm1 = null;
+	//document.getElementById("x711").innerHTML = "<p>Thank You! OK!!</p>"
+	document.getElementById("Edit0").innerHTML = "<p>Thank You! OK!!</p>";
+
+	activeFormRecId = null;
+	document.getElementById("formName").innerHTML =  '';
+	$("#Edit0").load(winCodePath+"winCodeBlank.html");
+
+}
+	
+function popUp1() {
+var msg = "Welcome to my world";
+// 1-standard,2-primary,3-success,4-info,5-warning,6-danger
+labelDisplayA(6,msg);
+
+
+var c = "<p> welcome</p>";
+var t = "Welcome";
+// no default buttons
+	$("#popUpDialog_a").kendoDialog({
+		width: "300px",
+		height: "150px",
+			title: t,
+			closable: true,
+			modal: true,
+			content: c
+	});
+	
+	$("#popUpDialog_a").data("kendoDialog").open();
+	
+}
+function labelDisplayA(x,msg) {
+
+	$("#lb_1a").hide();
+	$("#lb_2a").hide();
+	$("#lb_3a").hide();
+	$("#lb_4a").hide();
+	$("#lb_5a").hide();
+	$("#lb_6a").hide();
+
+	switch(x) {
+		case 1:
+		$("#lb_1a").show();
+		$("#lb_1a").html(msg);
+		break;
+		case 2:
+		$("#lb_2a").show();
+		$("#lb_2a").html(msg);
+		break;
+		case 3:
+		$("#lb_3a").show();
+		$("#lb_3a").html(msg);
+		break;
+		case 4:
+		$("#lb_4a").show();
+		$("#lb_4a").html(msg);
+		break;
+		case 5:
+		$("#lb_5a").show();
+		$("#lb_5a").html(msg);
+		break;
+		case 6:
+		$("#lb_6a").show();
+		$("#lb_6a").html(msg);
+		break;
+	};
+}
+
+</script> 
+</body>
+</html>

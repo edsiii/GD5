@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Showing pixel and tile coordinates</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>   
+
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+<script>
+	var map;
+	var markers = [];
+	labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	var labelIndex = 0;
+	var cid = '0532';
+	var franID;
+	var jobID;
+		
+    function initMapX() {
+		//var a = getUrlParameter("p1");
+		//var b = getUrlParameter("p2");
+		//var c = getUrlParameter("p3");
+		//var d = getUrlParameter("p4");
+		
+		var a = 39.114;
+		var b = -94.6707;
+		var c = "hello world";
+		var d = "Demo 2";
+		
+		franID = getUrlParameter("p1");
+		jobID = getUrlParameter("p2");
+		
+		//alert(franID+" xx "+jobID);
+        //var chicago = new google.maps.LatLng(41.850, -87.650);
+		var myLocation = new google.maps.LatLng(a, b);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: myLocation,
+          zoom: 12
+        });
+
+		getMapData();
+    }
+
+	// json call to get map data
+	// the loop and call to mkMarkers(params)
+	function getMapData() {
+		
+//var cid = '0532';
+		//var franID = 'GD00KS';
+		//var jobID = 1;
+		var rtData = [];
+		$.ajax({ 
+		type: 'POST', 
+		url: "http://localhost/GD/scripts/jobs2Map.php", 
+			//data: { },  
+			//data: data,
+			data: {'franID': franID, 'cid': cid, 'jobID': jobID },
+			success: function (data) { 
+				//alert(data.length);
+				//alert("Status "+data[0].status);
+				switch (data[0].status) {
+					case 'OK':
+						for (var i=0;i<data.length;++i)
+						{
+							//alert(data[i].clientID);
+							rtData.push(data[i]);
+						};		
+						//alert(rtData.length+" Look: "+rtData[0].FirstName);
+						if ( data.length >= 1 ) {
+							mkMarkers(rtData,0);
+							//alert("1");
+						}else{
+							//return_fuction(rtData,1);
+							alert("No Map Data");
+						};
+					break;
+					case 'ERROR':
+						alert("No records found");
+						//return_fuction(rtData,2);// 0=ok,1-security,2=no records
+					break;
+					case 'SECURITY ERROR':
+						alert("No records found");
+						//return_fuction(rtData,1);// 0=ok,1-security,2=no records
+					break;
+					default:
+						alert("XXXXX");
+					break;
+				};			
+			},
+			error: function(xhr, textStatus, error) {
+				//alert("Error:1 "+textStatus+" "+error);
+				$('#bsAlert3').show();
+			}
+		});
+	
+	}
+	
+	//var TILE_SIZE = 256;
+	// var scale = 2 << zoom;
+	  
+
+    // Adds a marker to the map.
+	function addMarker(location, map) {
+	  // Add the marker at the clicked location, and add the next-available label
+	  // from the array of alphabetical characters.
+	  var marker = new google.maps.Marker({
+		position: location,
+		label: labels[labelIndex++ % labels.length],
+		map: map
+	  });
+	}
+	
+	function addMk1(pos,lab,cont) {
+		  var contentString = cont;
+		  var infowindow = new google.maps.InfoWindow({
+	          content: contentString
+	      });
+		  var marker = new google.maps.Marker({
+			position: pos,
+			label: lab,
+			map: map
+			
+		  }); 
+		  marker.addListener('click', function() {
+	          infowindow.open(map, marker);
+	      });
+
+		  addMarker(marker);
+	}
+
+	function mkMarkers(mapData) {
+		for (var i=0;i< mapData.length;++i)
+		{
+			//alert(mapData[i].clientID);
+			var a = mapData[i].gpsLat;// 39.114053
+			var b = mapData[i].gpsLon;
+			//alert(a);
+			var myLatlng = new google.maps.LatLng(a,b);
+            //var myLatlng2 = new google.maps.LatLng(-25.573688, 132.567212);
+
+			//var a = parseFloat(mapData[i].gpsLat);
+			//var b = parseFloat(mapData[i].gpsLon);
+			//var x = mapData[i].gpsLat+', '+mapData[i].gpsLon;
+			//alert("Test "+myLatlng);
+			var pos = myLatlng; //{"lat": 39.114053, "lng": -94.6274636};
+			var lab = "Job# "+mapData[i].jobID+" Stop: "+mapData[i].orderSeq+" "+mapData[i].startCity ;
+			
+			var cont0 = "Stop "+mapData[i].orderSeq+" Job# "+mapData[i].jobID+"  Client: "+mapData[i].FirstName+" "+mapData[i].LastName+" Phone: "+mapData[i].phone1;
+			var cont1 = mapData[i].routeDesc+'<br>Address: ' + mapData[i].startAddr1+" "+mapData[i].startCity+" "+mapData[i].startState+" "+mapData[i].startZip+"<br>"+mapData[i].locationType;
+			var cont2 = "Arived: "+mapData[i].arivalTime+" Departed: "+mapData[i].departureTime;
+			var cont3 = "Crew Info, special Items Info, Contact Info";
+			var cont = cont0+"<br>"+cont1+"<br>"+cont2+"<br>"+cont3;
+			addMk1(pos,lab,cont);	
+		};		
+	}
+
+
+
+function getUrlParameter(sParam) {
+		//alert("cccc " + sParam);
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    };
+	return sParameterName[1] === undefined ? true : sParameterName[1];
+};
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8tqvUEVXeSu5KWPuZTNtIavLFdwgBJcs&callback=initMapX">
+    </script>
+  </body>
+</html>

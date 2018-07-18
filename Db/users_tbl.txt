@@ -1,0 +1,188 @@
+﻿DROP TABLE IF EXISTS users;
+
+CREATE TABLE IF NOT EXISTS users (
+    idx int NOT NULL AUTO_INCREMENT,
+    userID varchar(20) NOT NULL,
+    FirstName varchar(25) NOT NULL,
+    LastName varchar(25) NOT NULL,
+
+    franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    uid int DEFAULT 0,
+	email varchar(100),
+	phone1 varchar(15),
+    edate DATETIME ,
+    lupdte DATETIME ,
+    flg1 varchar(1) DEFAULT 'A',
+    PRIMARY KEY (idx) 
+) comment='users access table';
+
+-- xGiXU18zXz6jTgM4
+
+DROP TABLE IF EXISTS userDetal;
+
+CREATE TABLE IF NOT EXISTS userDetal (
+    idx int NOT NULL AUTO_INCREMENT,
+    userID varchar(20) NOT NULL,
+    
+    franID varchar(10) NOT NULL,
+    delflg int DEFAULT 0,
+    uid int DEFAULT 0,
+    edate DATETIME ,
+    lupdte DATETIME ,
+    flg1 varchar(1) DEFAULT 'A',
+    PRIMARY KEY (idx) 
+) comment='userDetal access table';
+
+CREATE TRIGGER user_after_insert AFTER INSERT
+   ON users FOR EACH ROW
+   INSERT INTO userDetal
+   ( userID,
+     franID)
+   VALUES
+   ( NEW.userID,
+     NEW.franID );
+
+// end
+
+
+DROP TRIGGER if exists users_INSERT;
+CREATE TRIGGER users_INSERT BEFORE INSERT ON users
+FOR EACH ROW 
+
+    SET new.edate = now(),
+        new.lupdte = now();
+
+DROP TRIGGER if exists users_UPDATE;
+CREATE TRIGGER users_UPDATE BEFORE UPDATE ON users
+FOR EACH ROW 
+    Set new.lupdte = now();
+
+
+	
+	
+	
+
+Recent
+Favorites
+
+
+
+
+
+New
+
+
+
+
+
+information_schema
+
+
+
+
+
+mydev1
+
+
+
+
+
+mysql
+
+
+
+
+
+performance_schema
+
+
+
+
+
+phpmyadmin
+
+
+
+
+test
+
+
+
+New
+
+
+
+
+
+userdetal
+
+
+
+
+users
+
+
+Server: 127.0.0.1 »Database: test »Table: users"users access table"
+
+ Browse 
+ Structure 
+ SQL 
+ Search 
+ Insert 
+ Export 
+ Import 
+More
+
+
+Console
+ascending
+descending
+Order:
+Debug SQL
+Execution order
+Time taken
+Order by:
+Group queries
+Some error occurred while getting SQL debug info.
+
+Bookmarks
+Refresh
+Add
+No bookmarks
+Add bookmark
+Label:  Target database:  Share this bookmarkOk
+
+
+​
+
+
+Options
+Set default
+Always expand query messages
+Show query history at start
+Show current browsing query
+Execute queries on Enter and insert new line with Shift + Enter. To make this permanent, view settings.
+Switch to dark theme
+ 1 row inserted.
+Inserted row id: 3
+
+INSERT INTO `users` (`idx`, `userID`, `FirstName`, `LastName`, `loginName`, `pwd`, `accessLevel`, `active`, `franID`, `delflg`, `uid`, `email`, `phone1`, `edate`, `lupdte`, `flg1`) 
+VALUES 
+(NULL, 'Qwa22', 'Edgar', 'Sanders', 'joel', 'none', '9', '1', 'GD00KS', '0', '0', 'abc@abc.com', '2132341234', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'A');
+
+INSERT INTO `users` (`idx`, `userID`, `FirstName`, `LastName`, `loginName`, `pwd`, `accessLevel`, `active`, `franID`, `delflg`, `uid`, `email`, `phone1`, `edate`, `lupdte`, `flg1`) 
+VALUES 
+(NULL, 'Qwa45', 'Edgar', 'Smith', 'lana', 'none', '1', '1', 'GD00KS', '0', '0', 'xyz@abc.com', '5132341234', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'A');
+
+
+INSERT INTO `users` (`idx`, `userID`, `FirstName`, `LastName`, `loginName`, `pwd`, `accessLevel`, `active`, `franID`, `delflg`, `uid`, `email`, `phone1`, `edate`, `lupdte`, `flg1`) 
+VALUES 
+(NULL, 'Xsa22', 'Jame', 'Jones', 'lana', 'none', '1', '1', 'GD00KS', '0', '0', 'ttt@abc.com', '5138981234', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'A');
+
+
+ALTER TABLE `users` ADD `email` VARCHAR(100) NULL AFTER `uid`, ADD `phone1` VARCHAR(15) NULL COMMENT 'cell phone' AFTER `email`; 
+
+CREATE USER 'appUser'@'localhost' IDENTIFIED VIA mysql_native_password USING '***';GRANT SELECT, INSERT, UPDATE, DELETE, FILE ON *.* TO 'appUser'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL PRIVILEGES ON `test`.* TO 'appUser'@'localhost';
+
+

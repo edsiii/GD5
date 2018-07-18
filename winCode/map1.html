@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Showing pixel and tile coordinates</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+	var map;
+var markers = [];
+var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var labelIndex = 0;
+
+      function initMapX() {
+		var a = getUrlParameter("p1");
+		var b = getUrlParameter("p2");
+		var c = getUrlParameter("p3");
+		var d = getUrlParameter("p4");
+		//alert(c);
+        //var chicago = new google.maps.LatLng(41.850, -87.650);
+		var chicago = new google.maps.LatLng(a, b);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: chicago,
+          zoom: 12
+        });
+
+		//alert("ok");
+	  var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+            'sandstone rock formation in the southern part of the '+
+            'Heritage Site.</p>'+
+            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            '(last visited June 22, 2009).</p>'+
+            '</div>'+
+            '</div>';
+      var infowindow = new google.maps.InfoWindow({
+          content: c
+        });
+      var marker = new google.maps.Marker({
+        position: chicago,
+        label: d,
+        map: map
+      }); 
+      marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+
+      //addMarker({lat: 38.9822282, lng:  -94.6707917}, map);
+	  addMarker(marker);
+	  
+	  
+		
+		/*
+        var coordInfoWindow = new google.maps.InfoWindow();
+        coordInfoWindow.setContent(createInfoWindowContent(chicago, map.getZoom(),c));
+        coordInfoWindow.setPosition(chicago);
+        coordInfoWindow.open(map);
+		*/
+        //map.addListener('zoom_changed', function() {
+          //coordInfoWindow.setContent(createInfoWindowContent(chicago, map.getZoom(),c));
+          //coordInfoWindow.open(map);
+        //});
+      }
+
+      var TILE_SIZE = 256;
+
+      function createInfoWindowContent(latLng, zoom, c) {
+        var scale = 2 << zoom;
+		/*
+        var worldCoordinate = project(latLng);
+
+        var pixelCoordinate = new google.maps.Point(
+            Math.floor(worldCoordinate.x * scale),
+            Math.floor(worldCoordinate.y * scale));
+
+        var tileCoordinate = new google.maps.Point(
+            Math.floor(worldCoordinate.x * scale / TILE_SIZE),
+            Math.floor(worldCoordinate.y * scale / TILE_SIZE));
+
+			
+        return [
+          'Chicago, IL',
+          'LatLng: ' + latLng,
+          'Zoom level: ' + zoom,
+          'World Coordinate: ' + worldCoordinate,
+          'Pixel Coordinate: ' + pixelCoordinate,
+          'Tile Coordinate: ' + tileCoordinate
+        ].join('<br>');
+		*/
+		
+		
+		return c +" <br>Welcome." ; //.join('<br>');
+		
+      }
+
+      // The mapping between latitude, longitude and pixels is defined by the web
+      // mercator projection.
+      function project(latLng) {
+        var siny = Math.sin(latLng.lat() * Math.PI / 180);
+
+        // Truncating to 0.9999 effectively limits latitude to 89.189. This is
+        // about a third of a tile past the edge of the world tile.
+        siny = Math.min(Math.max(siny, -0.9999), 0.9999);
+
+        return new google.maps.Point(
+            TILE_SIZE * (0.5 + latLng.lng() / 360),
+            TILE_SIZE * (0.5 - Math.log((1 + siny) / (1 - siny)) / (4 * Math.PI)));
+      }
+	  
+	  function dodo2(a,b,c) {
+      //alert("ok");
+	  var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+            'sandstone rock formation in the southern part of the '+
+            'Heritage Site.</p>'+
+            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            '(last visited June 22, 2009).</p>'+
+            '</div>'+
+            '</div>';
+      var infowindow = new google.maps.InfoWindow({
+          content: c
+        });
+      var marker = new google.maps.Marker({
+        position: {lat: a, lng:  b},
+        label: 'xxxx ',
+        map: map
+      }); 
+      marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+
+      //addMarker({lat: 38.9822282, lng:  -94.6707917}, map);
+	  addMarker(marker);
+    }
+	 
+	    // Adds a marker to the map.
+function addMarker(location, map) {
+  // Add the marker at the clicked location, and add the next-available label
+  // from the array of alphabetical characters.
+  var marker = new google.maps.Marker({
+    position: location,
+    label: labels[labelIndex++ % labels.length],
+    map: map
+  });
+}
+
+
+function getUrlParameter(sParam) {
+		//alert("cccc " + sParam);
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    };
+	return sParameterName[1] === undefined ? true : sParameterName[1];
+};
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8tqvUEVXeSu5KWPuZTNtIavLFdwgBJcs&callback=initMapX">
+    </script>
+  </body>
+</html>                                		

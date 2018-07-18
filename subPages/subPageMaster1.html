@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example of Bootstrap 3 Dropdowns within a Navbar</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+   
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   
+   
+   <link rel="stylesheet" href="../vendor/bootstrap.min.css" />
+   <link rel="stylesheet" href="http://cdn.kendostatic.com/2017.2.621/styles/kendo.common-bootstrap.min.css" />
+   <link rel="stylesheet" href="http://cdn.kendostatic.com/2017.2.621/styles/kendo.bootstrap.min.css" />
+   <!--
+   <link rel="stylesheet" href="http://cdn.kendostatic.com/2017.2.621/styles/kendo.dataviz.min.css" />
+   <link rel="stylesheet" href="http://cdn.kendostatic.com/2017.2.621/styles/kendo.dataviz.bootstrap.min.css" />
+   -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+   <script src="http://cdn.kendostatic.com/2017.2.621/js/kendo.all.min.js"></script>
+   <script src="http://cdn.kendostatic.com/2017.2.621/js/kendo.timezones.min.js"></script>
+   
+   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+   
+   <script src="../js/theme-chooser.js"></script>		
+	
+<!-- END -->
+<!-- 
+	http://getbootstrap.com/components/#breadcrumbs 
+	https://stackoverflow.com/questions/11742839/showing-a-google-map-in-a-modal-created-with-twitter-bootstrap
+	https://v4-alpha.getbootstrap.com/components/modal/
+	http://docs.telerik.com/kendo-ui/api/javascript/ui/alert
+-->
+
+<style type="text/css">
+	.bs-example{
+    	margin: 10px;
+    }
+	
+
+</style>
+<style type="text/css">
+    /* Some custom styles to beautify this example */
+    .demo-content{
+        padding: 0px;
+        font-size: 12px;
+        min-height: 30px;
+        background: #dbdfe5;
+        margin-bottom: 5px;
+		
+    }
+    .demo-content.bg-alt{
+        background: #abb1b8;
+    }
+	.demo-contentX{
+        background: #abb1b8;
+		margin-bottom: 2px;
+		padding: 0px;
+		min-height: 30px;
+		max-height: 90px;
+    }
+	.demo-contentZ{
+        background: #abb1b8;
+		margin-bottom: 2px;
+		padding: 0px;
+		min-height: 30px;
+		height: 65px;
+    }
+	.demo-contentS{
+        background: #dbdfe5;
+		margin-bottom: 1px;
+		padding: 0px;
+		min-height: 30px;
+		max-width: 100%;
+    }
+	.demo-contentE{
+        background: #dbdfe5;
+		margin-bottom: 1px;
+		padding: 0px;
+		min-height: 30px;
+		min-width: 100px;
+    }
+	.demo-contentF{
+        background: #dbdfe5;
+		margin-bottom: 1px;
+		padding: 0px;
+		min-height: 30px;
+		min-width: 50px;
+
+    }
+</style>
+
+</head>
+<body onLoad="mainG2();">
+
+    	
+	<div id="windowX"></div>
+	<div class="responsive-message"></div>
+	<div id="dialogX"></div>
+	
+ <div style="width:100%;height:400px;">
+	
+	
+		<div class="row-fluid">
+			<div class="col-lg-9 col-md-9 col-sm-8 col-xs-4" >
+				<div class="panel panel-default">
+					<div class="panel-heading">Job Board</div>
+					<div class="panel-body" style="height:300px;">
+						<div id="mainGrid" ></div>
+					</div>
+					<div class="panel-footer">Panel Footer</div>
+				  </div>
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<div class="short-div" style="height:300px;">
+					<div style="height:18px; vertical-align: middle;" >
+						<p>&nbsp;&nbsp;Todays Clients</p>
+						<div id="clientGrid" style="height:200px;"></div>
+					</div>
+				</div>
+			  <div class="short-div" style="height:300px;">
+					<div style="height:18px; vertical-align: middle;">
+						<p>&nbsp;&nbsp;Todays Crew List</p>
+						<div id="crewGrid" style="height:200px;overflow-y: scroll;"></div>            
+					</div>
+			  </div>
+			</div>    
+		</div>
+
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Modal Header</h4>
+		  </div>
+		  <div class="modal-body">
+			<p>Some text in the modal.</p>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<!-- END Modal -->
+	
+	
+			
+</div> <!-- END all -->
+<script src="../myJs/winTelerik.js"></script>
+<script src="../myJs/dialogTelerik.js"></script>
+<script src="../myJs/myUtil1.js"></script>
+   <script src="../myJs/myJason1.js"></script>
+   <script src="../myJs/myGrids.js"></script>
+   <script src="../myJs/myCals.js"></script>
+   <script src="../myJs/myTables.js"></script>
+<!-- 
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	
+	 -->
+
+<script>
+//var myWindow = $("#window");
+//var myDialog = $("#dialog");
+//var currentUserData = [];
+var cookiePageData = [];
+
+var mainGridData = [] ;
+
+$(document).ready(function () {								
+	reInit();
+	//baseWin1();
+	//myDialog1();	
+	 //mainG3();
+});
+function reInit() {
+	//baseWin1();
+	//myDialog1();	
+	jsonAllActiveUsers2(sp1fu,'GD00KS','0532');
+	mainG2();
+	//mainG3();
+		
+	var str = readCookie('gdiwd3P1');
+	cookiePageData = str.split(',');		
+	//alert("ParamX : "+ cookiePageData[0] );
+
+}
+
+
+function sp1fu(a,b,data) {
+	//alert("sp1fu");
+	//currentUserData = x;
+	// Build Kendo UI grid and datasource...
+	var sharedDataSource = new kendo.data.DataSource({  
+		data: data
+	});
+	 
+	
+	var gridX = $("#clientGrid").kendoGrid({
+		change: onChangeMainG3,
+		selectable: "row",
+		dataSource: sharedDataSource,
+		columns: [
+			{
+				field: "idx",
+				title: "idx",
+				width: "20px",
+			},
+			{   field: "userID",
+				title: "userID",
+				width: "40px",
+				hidden: true,
+			},
+			{   field: "FirstName",
+				title: "First Name",
+				style: "text-align:right",
+				width: "60px",
+				//type: 'date',
+				//template: '#= kendo.toString(CreatedDate,"MM/dd/yyyy") #'
+			}
+		]
+	});
+	//gridX.hideColumn("userID
+	
+	// end data grid
+		
+
+	
+	
+}
+</script>
+
+</body>
+</html>                                		

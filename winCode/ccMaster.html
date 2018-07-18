@@ -1,0 +1,237 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>iwd3</title>
+  <meta name="description" content="The iwd3">
+  <meta name="author" content="iwd3">
+
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<style>
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;
+}
+</style>
+<body>
+
+<div id="popUpDialog_b"><div id="popUpDialog_content_b"></div></div>
+<div id="dialogMed_b"><div id="dialogMed_content_b"></div></div>
+<div id="dialogLarge_b"><div id="dialogLarge_content_b"></div></div>
+<div id="helpDialog_b"><div id="helpDialog_content_b"></div></div>
+
+
+
+<button type="button" onclick="javascript:popUp1();" class="btn btn-default btn-sm">
+<span class="glyphicon glyphicon-edit"></span> Edit
+</button>
+<button type="button" onclick="javascript:popUp1();" class="btn btn-default btn-sm">
+  <span class="glyphicon glyphicon-trash"></span> Delete 
+</button>
+
+<button type="button" onclick="javascript:popUp1();" class="btn btn-default btn-sm">
+  <span class="glyphicon glyphicon-plus-sign"></span> New
+</button>
+
+<button type="button" onclick="javascript:popUp1();" class="btn btn-default btn-sm">
+  <span class="glyphicon glyphicon-question-sign"></span> Help
+</button> 
+
+<span class="label label-default" id="lb_1b" style="display:hidden;">Default Label</span>
+<span class="label label-primary" id="lb_2b" >Primary Label</span>
+<span class="label label-success" id="lb_3b" style="display:hidden;">Success Label</span>
+<span class="label label-info" id="lb_4b" style="display:hidden;">Info Label</span>
+<span class="label label-warning" id="lb_5b" style="display:hidden;">Warning Label</span>
+<span class="label label-danger" id="lb_6b" style="display:hidden;">Danger Label</span>
+
+             
+<script>
+var parmArray = [];// 0= uid, 1=custom param, 2=framID, 
+getUrlParameter2('recID');
+
+$("#lb_1b").hide();
+$("#lb_2b").hide();
+$("#lb_3b").hide();
+$("#lb_4b").hide();
+$("#lb_5b").hide();
+$("#lb_6b").hide();
+
+//getDataB();
+
+//alert(parmArray[2].id);
+function exit() {
+	document.getElementById("Edit0").innerHTML = "<p>Yea! OK!!</p>";
+	document.getElementById("Edit1").innerHTML = "<p>Yea! OK!!</p>";
+	document.getElementById("Edit2").innerHTML = "<p>Yea! OK!!</p>";
+}
+
+function getDataB() {
+// jobRouteID
+var msg = "loading...";
+labelDisplayB(5,msg);
+// get data
+	var formData=[];
+	var cid = '0532';
+	var str1 = "";
+	var rtData = [];
+	$.ajax({ 
+	type: 'POST', 
+	url: "./scripts/jobs2.php", 
+		//data: { },  
+		//data: data,
+		data: {'franID': franID, 'cid': cid },
+		success: function (data) { 
+			//str1 += '<a href="#" class="list-group-item">';
+			//jobLocData = [];
+			//var desc = "";
+			//var d2 = "";
+			switch (data[0].status) {
+				case 'OK':
+					for (var i=0;i<data.length;++i)
+					{
+						//alert(data[i].topic);
+						formData.push(data[i]);						
+					};
+					showDataB(formData);
+					//alert(formData.length);
+					//document.getElementById("inputText").value = data[0].startAddr1+' '+data[0].startCity+', '+data[0].startState+' '+data[0].startZip;
+				break;
+				case 'ERROR':
+					alert("No records found");
+					//return_fuction(rtData,2);// 0=ok,1-security,2=no records
+				break;
+				case 'SECURITY ERROR':
+					//return_fuction(rtData,1);// 0=ok,1-security,2=no records
+				break;
+				default:
+					//alert("XXXXX");
+				break;
+			};			
+		},
+		error: function(xhr, textStatus, error) {
+			alert("Error:1 "+textStatus+" "+error);
+		}
+	});
+
+function showDataB(d) {	
+	var sharedDataSource = new kendo.data.DataSource({  
+		data: d
+	});
+	var gridT = $("#formGridDiv").kendoGrid({
+		//change: onChangeGetQueryMaster,
+		//click: onChangeGetQueryMaster,
+		selectable: "row",
+		dataSource: sharedDataSource,
+		height: "305px", 
+		sortable: true,
+		columns: [
+			{
+				field: "idx",
+				title: "idx",
+				width: "5px",
+			},
+			{   field: "jobID",
+				title: "jobID",
+				width: "10px",
+				//hidden: true,
+			},
+			
+			{   field: "startAddr1",
+				title: "Address",
+				width: "15px",
+				//hidden: true,
+			},
+			{   field: "startCity",
+				title: "City",
+				width: "10px",
+				//hidden: true,
+			},
+			{   field: "startState",
+				title: "State",
+				width: "4px",
+				//hidden: true,
+			},			
+			{   field: "startZip",
+				title: "Zip Code",
+				width: "6px",
+				//hidden: true,
+			}
+		]
+	});
+	
+	var msg = "ready...";
+	labelDisplayB(1,msg);
+}
+	
+}
+
+function popUp1() {
+var msg = "Welcome to my world";
+// 1-standard,2-primary,3-success,4-info,5-warning,6-danger
+labelDisplayB(6,msg);
+
+
+var c = "<p> welcome</p>";
+var t = "Welcome";
+// no default buttons
+	$("#popUpDialog_b").kendoDialog({
+		width: "300px",
+		height: "150px",
+			title: t,
+			closable: true,
+			modal: true,
+			content: c
+	});
+	
+	$("#popUpDialog_b").data("kendoDialog").open();
+	
+}
+function labelDisplayB(x,msg) {
+
+	$("#lb_1b").hide();
+	$("#lb_2b").hide();
+	$("#lb_3b").hide();
+	$("#lb_4b").hide();
+	$("#lb_5b").hide();
+	$("#lb_6b").hide();
+
+	switch(x) {
+		case 1:
+		$("#lb_1b").show();
+		$("#lb_1b").html(msg);
+		break;
+		case 2:
+		$("#lb_2b").show();
+		$("#lb_2b").html(msg);
+		break;
+		case 3:
+		$("#lb_3b").show();
+		$("#lb_3b").html(msg);
+		break;
+		case 4:
+		$("#lb_4b").show();
+		$("#lb_4b").html(msg);
+		break;
+		case 5:
+		$("#lb_5b").show();
+		$("#lb_5b").html(msg);
+		break;
+		case 6:
+		$("#lb_6b").show();
+		$("#lb_6b").html(msg);
+		break;
+	};
+}
+
+</script> 
+</body>
+</html>
