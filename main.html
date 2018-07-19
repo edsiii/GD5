@@ -51,6 +51,29 @@
 -->
 
 
+<script src="./myJs/mainGrid.js"></script>
+
+<script src="./myJs/myNotifi.js"></script>
+<script src="./myJs/myChat1.js"></script>
+<script src="./myJs/myMap1.js"></script>
+<script src="./myJs/mainMenu.js"></script>
+<script src="./myJs/weather.js"></script>
+<script src="./myJs/myCrew.js"></script>
+<script src="./myJs/myJob1.js"></script>
+<script src="./myJs/myAlerts.js"></script>
+<script src="./myJs/mySchedual.js"></script>
+<script src="./myJs/dialogTelerik.js"></script>
+<script src="./myJs/myVehicle.js"></script>
+<script src="./myJs/tasks.js"></script>
+
+<script src="./myJs/entryForms.js"></script>
+<!--
+<script src="./myJs/jCom.js"></script>
+<script src="./myJs/myCharts2.js"></script>
+
+
+-->
+
 <script src="./myJs/myCookies.js"></script>
 <script src="./myJs/myUtil1.js"></script>
 <script src="./myJs/mySetVals.js"></script>
@@ -86,13 +109,13 @@ var cCrewDriverID;
 var cTruckID;
 var cTab;
 
-
+/*
 var franID = 'GD00KS' ;
 var cid = '0532';
 var cUserID = 0;
 var cUserType = 9;
 var cUserName = "Edgar Saners";
-
+*/
 
 //var capPath = configData[0].cappath; //"http://localhost/GD/winCode/cap/"; //EDS Config
 var winCodePath;
@@ -1095,7 +1118,7 @@ var activeFormRecId = null;
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="./js/jquery-3.2.1.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -1142,27 +1165,28 @@ var activeFormRecId = null;
    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js"></script>
    <script src="http://messaging-public.realtime.co/js/2.1.0/ortc.js"></script>
 
-<script src="./myJs/mainGrid.js"></script>
-<script src="./myJs/jCom.js"></script>
-<script src="./myJs/myNotifi.js"></script>
-<script src="./myJs/myChat1.js"></script>
-<script src="./myJs/myMap1.js"></script>
-<script src="./myJs/mainMenu.js"></script>
-<script src="./myJs/weather.js"></script>
-<script src="./myJs/myCrew.js"></script>
-<script src="./myJs/myJob1.js"></script>
-<script src="./myJs/myAlerts.js"></script>
-<script src="./myJs/mySchedual.js"></script>
-<script src="./myJs/dialogTelerik.js"></script>
-<script src="./myJs/myVehicle.js"></script>
-<script src="./myJs/tasks.js"></script>
-<script src="./myJs/myCharts2.js"></script>
-<script src="./myJs/entryForms.js"></script>
-
 
 <script>
 
-setTimeout(initLoad, 2000, cJobNo);
+//setTimeout(initLoad, 3000, cJobNo);
+
+//function initLoad(x) {
+	chatUsers();
+	showMainGrid();
+	getJob1();
+	getCrews();
+	getJobGridData();
+	chatUpdate('Dean S','user1-128x128.jpg','In coming Message text');
+	chatUpdateGet('Tim Jones','user1-128x128.jpg','Out going Message text');
+	getAllVehicle("","");
+	mssgList();
+	appAlerts();
+	showTasks();
+	getCalData('GD00KS');
+	weather1();
+	getUtilData();
+	getUtilData2();
+//}
 
 // url vars
 

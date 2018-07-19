@@ -1,8 +1,8 @@
-function showMainGrid(a,b,data) {
-	
-	var rtDataArray = a;
-	var status = b;
-	var rtJasonData = data;
+//function showMainGrid(a,b,data) {
+function showMainGrid() {	
+	//var rtDataArray = a;
+	//var status = b;
+	//var rtJasonData = data;
 		
 	var sharedDataSource = new kendo.data.DataSource({  
 	data: data

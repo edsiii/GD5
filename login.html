@@ -1,5 +1,8 @@
 <!-- LAYOUT -->
 
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.common-bootstrap.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.bootstrap.min.css" />
+
 <style type="text/css">
     /* Some custom styles to beautify this example */
     .demo-content{
@@ -50,7 +53,7 @@
 
     }
 </style>
-<div class="row" align="center" style="margin-top: 40%;">
+<div class="row" align="center" style="margin-top: 25%;">
 
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="demo-content1" id="pageClock" align="center">
@@ -90,7 +93,8 @@
 		</div>
 	</div>
 </div>
-
+<span id="popupNotification"></span>
+<span id="staticNotification"></span>
 
 	<!--
 	<div id="dialog">......</div>
@@ -110,7 +114,7 @@ $(document).ready(function () {
 
 
 //setTimeout(setDT, 6000);
-securityNotifi('Welcome!');
+//securityNotifi('Welcome!');
 document.getElementById('loginname').value = "";
 document.getElementById('pwd').value = "";
 document.getElementById('acc').value = "";

@@ -46,7 +46,7 @@
   <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery-3.2.1.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="bower_components/jquery-ui/ .js"></script>
+<script src="./js/jquery-3.2.1.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   
   <!-- Google Font -->
@@ -63,7 +63,7 @@
 <script src="./myJs/mySetVals.js"></script>
 
 <script src="./myJs/mainGrid.js"></script>
-<script src="./myJs/jCom.js"></script>
+
 <script src="./myJs/myNotifi.js"></script>
 <script src="./myJs/myChat1.js"></script>
 <script src="./myJs/myMap1.js"></script>
@@ -76,9 +76,11 @@
 <script src="./myJs/dialogTelerik.js"></script>
 <script src="./myJs/myVehicle.js"></script>
 <script src="./myJs/tasks.js"></script>
-<script src="./myJs/myCharts2.js"></script>
 <script src="./myJs/entryForms.js"></script>
-
+<!--
+<script src="./myJs/myCharts2.js"></script>
+<script src="./myJs/jCom.js"></script>
+-->
 <script>
 
 var map, map2;
@@ -122,8 +124,8 @@ var cTab;
 var cUserID;
 var cUserType;
 var cUserName;
-var franID = 'GD00KS' ;
-var cid = '0532';
+var franID  ;
+var cid ;
 
 //var capPath = configData[0].cappath; //"http://localhost/GD/winCode/cap/"; //EDS Config
 var winCodePath;
@@ -157,8 +159,8 @@ var parmArray = [];
 var activeForm1 = null;
 var activeFormRecId = null;
 
-$("#pageDiv").load("./main.html");
-
+$("#pageDiv").load("./starter.html");
+/*
 function initLoad(x) {
 	chatUsers();
 	showMainGrid();
@@ -176,7 +178,7 @@ function initLoad(x) {
 	getUtilData();
 	getUtilData2();
 }
-
+*/
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   e.target // newly activated tab
