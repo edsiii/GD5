@@ -66,15 +66,15 @@
 				  <form class="form-inline" >
 					<div class="form-group">
 					  <label class="sr-only" for="loginname">Login Name:</label>
-					  <input type="text" class="form-control" id="loginname" placeholder="Enter Login"  name="loginname">
+					  <input type="text" class="form-control" id="loginname" placeholder="Enter Login" value="joel"  name="loginname">
 					</div>
 					<div class="form-group">
 					  <label class="sr-only" for="pwd">Password:</label>
-					  <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+					  <input type="password" class="form-control" id="pwd" placeholder="Enter password" value="none" name="pwd">
 					</div>
 					<div class="form-group">
 					  <label class="sr-only" for="acc">Access Code:</label>
-					  <input type="password" class="form-control" id="acc" placeholder="Enter Access Code" name="acc">
+					  <input type="password" class="form-control" id="acc" placeholder="Enter Access Code" value="GD00KS" name="acc">
 					</div>
 
 					<br/><br/>
@@ -115,9 +115,9 @@ $(document).ready(function () {
 
 //setTimeout(setDT, 6000);
 //securityNotifi('Welcome!');
-document.getElementById('loginname').value = "";
-document.getElementById('pwd').value = "";
-document.getElementById('acc').value = "";
+//document.getElementById('loginname').value = "";
+//document.getElementById('pwd').value = "";
+//document.getElementById('acc').value = "";
 
 });
 
@@ -163,7 +163,7 @@ var rtData = [];//FIX
 				case 'OK':
 					for (var i=0;i<data.length;++i)
 					{
-						alert(data[i].FirstName);
+						//alert(data[i].FirstName);
 						cUserID = data[i].userID;
 						cUserType = data[i].accessLevel;
 						cUserName = data[i].FirstName+" "+data[i].LastName;

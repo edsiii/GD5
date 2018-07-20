@@ -1,7 +1,7 @@
 
 function weather1() {
 	// http://simpleweatherjs.com/
-	//alert("OK");
+	
 	$.simpleWeather({
     //woeid: '2357536', //2357536
     location: 'Kansas City, Kansas',
@@ -40,6 +40,7 @@ function weather1() {
 		 $("#wupdte").html("<p>"+dateTime1("s")+"</p>"); //html('Last Updated: '+weather.updated);
 		 
 		$("#weather").html(html);
+		alert("OK");
     },
     error: function(error) {
       $("#weather").html('<p>'+error+'</p>');
