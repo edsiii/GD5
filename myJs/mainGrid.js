@@ -1,3 +1,40 @@
+function mainGrid1() {
+	alert("XXX");
+	$("#mainGridDiv").kendoGrid({
+	dataSource: {
+		data: products,
+		schema: {
+			model: {
+				fields: {
+					ProductName: { type: "string" },
+					UnitPrice: { type: "number" },
+					UnitsInStock: { type: "number" },
+					Discontinued: { type: "boolean" }
+				}
+			}
+		},
+		pageSize: 20
+	},
+	height: 550,
+	scrollable: true,
+	sortable: true,
+	filterable: true,
+	pageable: {
+		input: true,
+		numeric: false
+	},
+	columns: [
+		"ProductName",
+		{ field: "UnitPrice", title: "Unit Price", format: "{0:c}", width: "130px" },
+		{ field: "UnitsInStock", title: "Units In Stock", width: "130px" },
+		{ field: "Discontinued", width: "130px" }
+	]
+});
+
+	
+}
+
+
 //function showMainGrid(a,b,data) {
 function showMainGrid() {	
 	//var rtDataArray = a;
@@ -5,7 +42,7 @@ function showMainGrid() {
 	//var rtJasonData = data;
 		
 	var sharedDataSource = new kendo.data.DataSource({  
-	data: data
+	data: data 
 	});	
 
 	var gridT = $("#mainGridDiv").kendoGrid({

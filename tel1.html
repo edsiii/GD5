@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!--
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+-->
+
+
+<!-- <script src="http://kendo.cdn.telerik.com/2018.2.620/js/jquery.min.js"></script> -->
+
+
+
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.2.620/styles/kendo.common.min.css" />
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.2.620/styles/kendo.blueopal.min.css" />
+<script src="http://kendo.cdn.telerik.com/2018.2.620/js/jquery.min.js"></script>
+<script src="http://kendo.cdn.telerik.com/2018.2.620/js/kendo.all.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+</head>
+<style>
+
+</style>
+
+<body>
+
+<script src="./content/shared/js/products.js"></script>
+
+<div id="example">
+	<div id="grid">.....</div>
+
+	<script>
+		$(document).ready(function() {
+			//alert("ok");
+			$("#grid").kendoGrid({
+			
+				dataSource: {
+					data: products,
+					
+				//dataSource: {
+                            //type: "odata",
+                            //transport: {
+                                //read: "./products.json"
+                            //},	
+					
+					schema: {
+						model: {
+							fields: {
+								ProductName: { type: "string" },
+								UnitPrice: { type: "number" },
+								UnitsInStock: { type: "number" },
+								Discontinued: { type: "boolean" }
+							}
+						}
+					},
+					pageSize: 20
+				},
+				height: 550,
+				scrollable: true,
+				sortable: true,
+				filterable: true,
+				pageable: {
+					input: true,
+					numeric: false
+				},
+				columns: [
+					"ProductName",
+					{ field: "UnitPrice", title: "Unit Price", format: "{0:c}", width: "130px" },
+					{ field: "UnitsInStock", title: "Units In Stock", width: "130px" },
+					{ field: "Discontinued", width: "130px" }
+				]
+			});
+		});
+	</script>
+</div>
+
+<script>
+
+</script>
+</body>
+</html>

@@ -4,6 +4,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Greatday | Dashboard</title>
+  <!--
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+	-->
+	
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -19,21 +23,16 @@
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
   <!-- Morris chart -->
   <link rel="stylesheet" href="bower_components/morris.js/morris.css">
-  <!-- jvectormap -->
-  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
-  <!-- Date Picker -->
-  <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
-  <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.common-bootstrap.min.css" />
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.bootstrap.min.css" />
 <!--
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.dataviz.min.css" />
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.3.913/styles/kendo.dataviz.bootstrap.min.css" />
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.2.620/styles/kendo.common.min.css" />
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.2.620/styles/kendo.blueopal.min.css" />
+<script src="http://kendo.cdn.telerik.com/2018.2.620/js/jquery.min.js"></script>
+<script src="http://kendo.cdn.telerik.com/2018.2.620/js/kendo.all.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="http://kendo.cdn.telerik.com/2018.2.620/js/jquery.min.js"></script>
+
 -->
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -43,30 +42,35 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-  <!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery-3.2.1.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="./js/jquery-3.2.1.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
   
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-</head>
-<body class="hold-transition skin-blue sidebar-mini" >
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.2.620/styles/kendo.common.min.css" />
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2018.2.620/styles/kendo.default.min.css" />
+<link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+<!--
+<script src="http://kendo.cdn.telerik.com/2018.2.620/js/jquery.min.js"></script>
+-->
 
-<div id="pageDiv">
+  
+<script src="http://kendo.cdn.telerik.com/2018.2.620/js/kendo.all.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+</head>
+<body  >
+
+<div id="pageDiv" style="width: 100%;>
 <p>........................</p>
 </div>
 
-<script src="./myJs/myCookies.js"></script>
-<script src="./myJs/myUtil1.js"></script>
-<script src="./myJs/mySetVals.js"></script>
-
+<!--
 <script src="./myJs/mainGrid.js"></script>
 
 <script src="./myJs/myNotifi.js"></script>
 <script src="./myJs/myChat1.js"></script>
-<script src="./myJs/myMap1.js"></script>
+
 <script src="./myJs/mainMenu.js"></script>
 
 <script src="./myJs/myCrew.js"></script>
@@ -74,21 +78,25 @@
 <script src="./myJs/myAlerts.js"></script>
 <script src="./myJs/mySchedual.js"></script>
 <script src="./myJs/dialogTelerik.js"></script>
-<script src="./myJs/myVehicle.js"></script>
+
 <script src="./myJs/tasks.js"></script>
+<script src="./myJs/myUtil1.js"></script>
 <script src="./myJs/entryForms.js"></script>
-<!--
-<script src="./myJs/myCharts2.js"></script>
-<script src="./myJs/jCom.js"></script>
-<script src="./myJs/weather.js"></script>
 -->
+<!--
+// main
+<script src="./myJs/jCom.js"></script>
+<script src="./myJs/myCharts2.js"></script>
+<script src="./myJs/myMap1.js"></script>
+<script src="./myJs/myVehicle.js"></script>
+-->
+
 <script>
 
 var map, map2;
 var markers = [];
 var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var labelIndex = 0;
-//$(document).ready(function () {
 
 // mySetValues
 var vehicleStatCode;
@@ -160,78 +168,6 @@ var parmArray = [];
 var activeForm1 = null;
 var activeFormRecId = null;
 
-$("#pageDiv").load("./starter.html");
-/*
-function initLoad(x) {
-	chatUsers();
-	showMainGrid();
-	getJob1();
-	getCrews();
-	getJobGridData();
-	chatUpdate('Dean S','user1-128x128.jpg','In coming Message text');
-	chatUpdateGet('Tim Jones','user1-128x128.jpg','Out going Message text');
-	getAllVehicle("","");
-	mssgList();
-	appAlerts();
-	showTasks();
-	getCalData('GD00KS');
-	weather1();
-	getUtilData();
-	getUtilData2();
-}
-*/
-
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-  e.target // newly activated tab
-  e.relatedTarget // previous active tab
-  var target = $(e.target).attr("href") // activated tab
-
-  //alert(e.target+" Yea! "+e.relatedTarget+" - "+target);
-  //alert(e.target+" Yea! "+target);
-//activaTab('tab_1-4A');
-					
-  switch(target) {
-	case "#tab_1-2A":
-	// ??
-	initMap1x();
-	
-	break;
-	case "tab_1-3A":
-	
-	break;
-	case "#tab_1-4A":
-		//alert("#tab_1-4A");
-		 //$('[href="#tab_1-4A"]').tab('show');
-		//testForm1();
-		
-		//$("#Edit0").load(winCodePath+"divPageMaster.html?uid=EDS&recID=22&franID=GD00KS");
-
-		//$('[href="#menu3"]').tab('show');// this will go to the tab on loaded page
-	break;
-  };
-  
-// schedular update
-scheduler = $("#scheduler").data("kendoScheduler");		
-$("#scheduler").data("kendoScheduler").refresh();	
-$('#scheduler').data('kendoScheduler').dataSource.read();
-  
-})
-function activaTab(tab){
- // $('.nav-tabs a[href="#' + tab + '"]').tab('show');
-};
-function menu3(){
- // $('[href="#menu3"]').tab('show');// this will go to the tab on loaded page
-}
-
-</script>
-
-<!--
-
-
-
-<script>
-
-
 /*
 	var cookieData = [];
 	//EDS test createCookie('gdiwd3', "", -1);// delete cookie
@@ -280,81 +216,11 @@ function menu3(){
 		}
 	}
 	
-	siteConfig();
+	//siteConfig();
 	//getUrlParameter2('uid');
-	// $("#pageDiv").load("./main.html");
+	$("#pageDiv").load("./mainX.html");
 </script>
 
-<div id="pageDiv">
-<p>........................</p>
-</div>
-
-<script src="./myJs/mainGrid.js"></script>
-<script src="./myJs/jCom.js"></script>
-<script src="./myJs/myNotifi.js"></script>
-<script src="./myJs/myChat1.js"></script>
-<script src="./myJs/myMap1.js"></script>
-<script src="./myJs/mainMenu.js"></script>
-<script src="./myJs/weather.js"></script>
-<script src="./myJs/myCrew.js"></script>
-<script src="./myJs/myJob1.js"></script>
-<script src="./myJs/myAlerts.js"></script>
-<script src="./myJs/mySchedual.js"></script>
-<script src="./myJs/dialogTelerik.js"></script>
-<script src="./myJs/myVehicle.js"></script>
-<script src="./myJs/tasks.js"></script>
-<script src="./myJs/myCharts2.js"></script>
-<script src="./myJs/entryForms.js"></script>
-
-
-<script>
-var map, map2;
-var markers = [];
-var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-var labelIndex = 0;
-
-
-$("#pageDiv").load("./main.html");
-alert("c");
-//$(document).ready(function () {
-
-
-// mySetValues
-var vehicleStatCode;
-
-
-// END mySetValues
-
-// EDS RUN SECTION
-/*
-chatUsers();
-showMainGrid();
-getJob1();
-getCrews();
-getJobGridData();
-chatUpdate('Dean S','user1-128x128.jpg','In coming Message text');
-//chatUpdateGet('Tim Jones','user1-128x128.jpg','Out going Message text');
-getAllVehicle("","");
-	mssgList();
-	appAlerts();
-	showTasks();
-getCalData('GD00KS');
-weather1();
-*/
-// url vars
-
-
-
-
-//document.getElementById("usrName").innerHTML  =  '<font size="1" color="white">'+cUserName+'</font>';
-//document.getElementById("usrName2").innerHTML =  '<font size="1" color="white">'+cUserName+'</font>';
-
-//$("#scheduler").data("kendoScheduler").refresh();	
-//$('#scheduler').data('kendoScheduler').dataSource.read();
-
-//getUtilData();
-//getUtilData2();
--->
 
 </body>
 </html>

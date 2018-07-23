@@ -7,13 +7,17 @@ header("Content-Type: application/json; charset=UTF-8");
 require './Required/phpDBConfig.php';
 require './Required/phpSecurity.php';
 
+
+//$idx					= 55;
+$mode 					= "X";
+$cid 			= '0532';
 /*
-$idx					= $_POST["idx"];
 $trucknumber 			= $_POST["trucknumber"];
+
 $truckname 				= $_POST["truckname"];
 $truckmodel 			= $_POST["truckmodel"];
 $description 			= $_POST["description"];
-$milage 				= $_POST["milage"];
+$mileage 				= $_POST["mileage"];
 $status 				= $_POST["status"];
 $lastMaintanceCheck 	= $_POST["lastMaintanceCheck"];
 
@@ -22,21 +26,21 @@ $cid 	= $_POST["cid"];
 $franID	= $_POST["franID"];
 */
 
-
+/*
 //TEST ZONE 
 $idx			= 52;
 $trucknumber 	= '32551';
 $truckname 		= "ABC1gggg";
 $truckmodel 			= "truckmodel";
 $description 			= "description";
-$milage 				= 23.8;
+$mileage 				= 23.8;
 $status 				= "status";
 $lastMaintanceCheck 	= "2017-11-22 13:30:13";
 
 $mode 			= 'X';
 $cid 			= '0532';
 $franID			= 'GD00KS';
-
+*/
 
 
 // EDIT ZONE
@@ -49,12 +53,12 @@ if ( $cid == $appCid ) {
 	//echo $sqlA;
 	switch ( $mode ) {
 		case "U":
-			$SQL_query = "UPDATE vehicle SET truckname = '$truckname', truckmodel = '$truckmodel', trucknumber = '$trucknumber', truckmodel = '$truckmodel', description = '$description', milage = $milage, status = '$status', lastMaintanceCheck = '$lastMaintanceCheck' WHERE idx = $idx AND franID = '$franID' ;" ;
+			$SQL_query = "UPDATE vehicle SET truckname = '$truckname', truckmodel = '$truckmodel', trucknumber = '$trucknumber', truckmodel = '$truckmodel', description = '$description', mileage = $mileage, status = '$status', lastMaintanceCheck = '$lastMaintanceCheck' WHERE idx = $idx AND franID = '$franID' ;" ;
 			//echo $SQL_query;
 			$query = mysqli_query($connection,$SQL_query);
 		break;
 		case "I":
-			$SQL_query = "INSERT INTO vehicle (trucknumber, truckname, truckmodel, description, milage, status, lastMaintanceCheck, franID) VALUES('$trucknumber', '$truckname', '$truckmodel', '$description', $milage, '$status', '$lastMaintanceCheck', '$franID');";
+			$SQL_query = "INSERT INTO vehicle (trucknumber, truckname, truckmodel, description, milage, status, lastMaintanceCheck, franID) VALUES('$trucknumber', '$truckname', '$truckmodel', '$description', $mileage, '$status', '$lastMaintanceCheck', '$franID');";
 			//echo $SQL_query;
 			$query = mysqli_query($connection,$SQL_query);
 		break;
@@ -83,7 +87,7 @@ if ( $cid == $appCid ) {
 			  'truckname' 			=> $row['truckname'],
 			  'truckmodel' 			=> $row['truckmodel'],
 			  'description' 		=> $row['description'],
-			  'milage' 				=> $row['milage'],
+			  'mileage' 			=> $row['mileage'],
 			  'vStatus' 			=> $row['status'],
 			  'lastMaintanceCheck' 	=> $row['lastMaintanceCheck'],
 			  
